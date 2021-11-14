@@ -89,7 +89,7 @@ public class ProcesosModel {
     //luego debemos recargar el listado
     public boolean AgregarProceso(Proceso proceso) {
         //variable a devolver en true o false si todo fue correcto o no
-        boolean agregarProcesoEstado = false;
+        boolean agregarProcesoEstado;
         //Debemos Verificar si el proceso ya existe con el Id enviado, lo sobreescribimos.
         //Sino creamos uno nuevo
         //creo una bandera para saber si es edicion (default false)
@@ -116,7 +116,53 @@ public class ProcesosModel {
             procesos.add(proceso);
         }
 
+          //haciendo refactoring, vemos que toda esta parte se utiliza en edicion y agregacion de procesos
+        //creamos nuevo método con try catch para EscribirProcesosFile
         //vamos a abrir el archivo, borrarlo y cargar todos los procesos nuevamente
+        agregarProcesoEstado = EscribirProcesosFile(procesos);
+
+        return agregarProcesoEstado;
+    }
+
+    public boolean EliminarProceso(Proceso proceso) {
+        //variable a devolver en true o false si todo fue correcto o no
+        boolean eliminarProcesoEstado;
+        //Debemos Verificar si el proceso ya existe con el Id enviado, lo sobreescribimos.
+        //Sino creamos uno nuevo
+        //creo una bandera para saber si es edicion (default false)
+        boolean existeProceso = false;
+        List<Proceso> procesos = this.ObtenerListadoProcesos();
+        //si es edicion, al salir del for voy a tener en procesoEditar un valor distinto de null
+        Proceso procesoEliminarArchivo = null;
+        //si entra en alguno, edicion va a igualar a true;
+        for (Proceso procesoDatos : procesos) {
+            if (procesoDatos.getId() == proceso.getId()) {
+                existeProceso = true;
+                procesoEliminarArchivo = procesoDatos;
+            }
+        }
+
+        //si existe el proceso, lo quitamos de la lista
+        if (existeProceso && procesoEliminarArchivo != null) {
+            procesos.remove(procesoEliminarArchivo);
+        } else {
+            //si no existe, directamente devolvemos true
+            return true;
+        }
+
+        //haciendo refactoring, vemos que toda esta parte se utiliza en edicion y agregacion de procesos
+        //creamos nuevo método con try catch para EscribirProcesosFile
+        //vamos a abrir el archivo, borrarlo y cargar todos los procesos nuevamente
+        eliminarProcesoEstado = EscribirProcesosFile(procesos);
+        
+        //retornamos el resultado
+        return eliminarProcesoEstado;
+    }
+
+    private boolean EscribirProcesosFile(List<Proceso> procesos) {
+        //bandera actualizacion file
+        boolean resultadoEscritura = false;
+
         try {
             //apertura del archivo y creacion de buffer para poder hacer una lectura comodo con el metodo readLine()
             //cada fila es un proceso con el id - nombreProceso - tiempoArribo - rafagaCPU - prioridad
@@ -132,19 +178,24 @@ public class ProcesosModel {
             procesosFileWriter = new FileWriter(procesosFile);
             procesosFileWriterLinea = new PrintWriter(procesosFileWriter);
 
-            //por cada proceso en el listado, voy a escribir la linea en el  archivo
-            for (Proceso procesoDatos : procesos) {
-               String lineaProceso = procesoDatos.getId()+"-"+procesoDatos.getNombreProceso()+"-"+procesoDatos.getTiempoArribo()+"-"+procesoDatos.getRafagaCPU()+"-"+procesoDatos.getPrioridad();
-               procesosFileWriterLinea.println(lineaProceso);
-            }         
-            
+            //si no hay procesos, debo borrar todas las lineas
+            if (procesos.isEmpty()) {
+                procesosFileWriterLinea.println("");
+            } else {
+                //por cada proceso en el listado, voy a escribir la linea en el  archivo
+                for (Proceso procesoDatos : procesos) {
+                    String lineaProceso = procesoDatos.getId() + "-" + procesoDatos.getNombreProceso() + "-" + procesoDatos.getTiempoArribo() + "-" + procesoDatos.getRafagaCPU() + "-" + procesoDatos.getPrioridad();
+                    procesosFileWriterLinea.println(lineaProceso);
+                }
+            }
+
             //seteo todo como correcto
-            agregarProcesoEstado = true;
+            resultadoEscritura = true;
 
         } catch (Exception e) {
             //hubo un error en la lectura de los datos
             System.out.println(e.getMessage());
-        } finally{
+        } finally {
             try {
                 //intentamos cerrar la conexxion
                 if (procesosFileWriter != null) {
@@ -155,9 +206,8 @@ public class ProcesosModel {
                 //no se pudo cerrar la conexion
                 System.out.println(e2.getMessage());
             }
-        } 
-
-        return agregarProcesoEstado;
+        }
+        
+        return resultadoEscritura;
     }
-
 }

@@ -44,10 +44,12 @@ public class ProcesosView extends javax.swing.JFrame {
         txtIdProceso = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnRecargarListado = new javax.swing.JButton();
-        btnHabilitarEdicion = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         btnEliminarProceso = new javax.swing.JButton();
+        btnLimpiarDatos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Creación y Edición de Procesos");
 
         jLabel1.setText("Nombre Proceso:");
 
@@ -110,11 +112,13 @@ public class ProcesosView extends javax.swing.JFrame {
 
         btnGuardar.setText("Guardar");
 
-        btnRecargarListado.setText("Listar - Recargar");
+        btnRecargarListado.setText("Listar/Recargar");
 
-        btnHabilitarEdicion.setText("Editar");
+        btnEditar.setText("Editar");
 
         btnEliminarProceso.setText("Eliminar");
+
+        btnLimpiarDatos.setText("Limpiar/Nuevo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,7 +130,11 @@ public class ProcesosView extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnEliminarProceso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,10 +152,9 @@ public class ProcesosView extends javax.swing.JFrame {
                             .addComponent(txtIdProceso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnRecargarListado, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(btnRecargarListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHabilitarEdicion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminarProceso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnLimpiarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -167,12 +174,11 @@ public class ProcesosView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtTiempoArribo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHabilitarEdicion))
+                    .addComponent(btnLimpiarDatos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtRafagaCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminarProceso))
+                    .addComponent(txtRafagaCPU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -181,7 +187,11 @@ public class ProcesosView extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditar)
+                    .addComponent(btnEliminarProceso))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,10 +238,11 @@ public class ProcesosView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEliminarProceso;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnHabilitarEdicion;
-    private javax.swing.JButton btnRecargarListado;
+    public javax.swing.JButton btnEditar;
+    public javax.swing.JButton btnEliminarProceso;
+    public javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnLimpiarDatos;
+    public javax.swing.JButton btnRecargarListado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -240,11 +251,11 @@ public class ProcesosView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     public javax.swing.JTable tablaProcesosPlanficados;
-    private javax.swing.JTextField txtIdProceso;
-    private javax.swing.JTextField txtNombreProceso;
-    private javax.swing.JTextField txtPrioridad;
-    private javax.swing.JTextField txtRafagaCPU;
-    private javax.swing.JTextField txtTiempoArribo;
+    public javax.swing.JTextField txtIdProceso;
+    public javax.swing.JTextField txtNombreProceso;
+    public javax.swing.JTextField txtPrioridad;
+    public javax.swing.JTextField txtRafagaCPU;
+    public javax.swing.JTextField txtTiempoArribo;
     // End of variables declaration//GEN-END:variables
 
     public void DelegarAcciones() {
