@@ -256,6 +256,12 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoFifo">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[550, 450]"/>
+        </Property>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -330,13 +336,23 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoSwapping">
+      <Properties>
+        <Property name="alwaysOnTop" type="boolean" value="true"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[550, 450]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[550, 450]"/>
+        </Property>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane5" pref="529" max="32767" attributes="0"/>
+                  <Component id="jScrollPane5" pref="530" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -353,7 +369,7 @@
                   <Component id="jLabel15" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane5" min="-2" pref="354" max="-2" attributes="0"/>
-                  <EmptySpace pref="42" max="32767" attributes="0"/>
+                  <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -404,6 +420,13 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoSSTF">
+      <Properties>
+        <Property name="alwaysOnTop" type="boolean" value="true"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[553, 432]"/>
+        </Property>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -477,6 +500,12 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoDekker">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[553, 386]"/>
+        </Property>
+        <Property name="modal" type="boolean" value="true"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -550,6 +579,15 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoPeterson">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[553, 386]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[553, 386]"/>
+        </Property>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -623,6 +661,11 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoLamport">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[583, 432]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -697,6 +740,12 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoLRU">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[553, 386]"/>
+        </Property>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -770,18 +819,23 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoLook">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[582, 311]"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane12" pref="543" max="32767" attributes="0"/>
+                  <Component id="jScrollPane12" pref="572" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="250" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -791,7 +845,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel22" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jScrollPane12" pref="224" max="32767" attributes="0"/>
+                  <Component id="jScrollPane12" pref="237" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -843,6 +897,12 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmoScan">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[553, 432]"/>
+        </Property>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -916,6 +976,12 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="jDetalleAlgoritmocScan">
+      <Properties>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[553, 432]"/>
+        </Property>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

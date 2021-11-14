@@ -346,6 +346,9 @@ public class Principal extends javax.swing.JFrame {
         });
         jPopUpMenuTable.add(jItemEliminarFila);
 
+        jDetalleAlgoritmoFifo.setPreferredSize(new java.awt.Dimension(550, 450));
+        jDetalleAlgoritmoFifo.setResizable(false);
+
         jTextArea2.setEditable(false);
         jTextArea2.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea2.setColumns(20);
@@ -383,6 +386,11 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
+        jDetalleAlgoritmoSwapping.setAlwaysOnTop(true);
+        jDetalleAlgoritmoSwapping.setMinimumSize(new java.awt.Dimension(550, 450));
+        jDetalleAlgoritmoSwapping.setPreferredSize(new java.awt.Dimension(550, 450));
+        jDetalleAlgoritmoSwapping.setResizable(false);
+
         jTextArea3.setEditable(false);
         jTextArea3.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea3.setColumns(20);
@@ -403,7 +411,7 @@ public class Principal extends javax.swing.JFrame {
             jDetalleAlgoritmoSwappingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDetalleAlgoritmoSwappingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoSwappingLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -417,8 +425,12 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
+
+        jDetalleAlgoritmoSSTF.setAlwaysOnTop(true);
+        jDetalleAlgoritmoSSTF.setMinimumSize(new java.awt.Dimension(553, 432));
+        jDetalleAlgoritmoSSTF.setResizable(false);
 
         jTextArea4.setEditable(false);
         jTextArea4.setBackground(new java.awt.Color(240, 240, 240));
@@ -456,6 +468,9 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
+        jDetalleAlgoritmoDekker.setMinimumSize(new java.awt.Dimension(553, 386));
+        jDetalleAlgoritmoDekker.setModal(true);
+
         jTextArea5.setEditable(false);
         jTextArea5.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea5.setColumns(20);
@@ -492,6 +507,10 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jDetalleAlgoritmoPeterson.setMinimumSize(new java.awt.Dimension(553, 386));
+        jDetalleAlgoritmoPeterson.setPreferredSize(new java.awt.Dimension(553, 386));
+        jDetalleAlgoritmoPeterson.setResizable(false);
+
         jTextArea6.setEditable(false);
         jTextArea6.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea6.setColumns(20);
@@ -527,6 +546,8 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jDetalleAlgoritmoLamport.setMinimumSize(new java.awt.Dimension(583, 432));
 
         jTextArea7.setEditable(false);
         jTextArea7.setBackground(new java.awt.Color(240, 240, 240));
@@ -565,6 +586,9 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
+        jDetalleAlgoritmoLRU.setMinimumSize(new java.awt.Dimension(553, 386));
+        jDetalleAlgoritmoLRU.setResizable(false);
+
         jTextArea8.setEditable(false);
         jTextArea8.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea8.setColumns(20);
@@ -601,6 +625,8 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jDetalleAlgoritmoLook.setMinimumSize(new java.awt.Dimension(582, 311));
+
         jTextArea10.setEditable(false);
         jTextArea10.setBackground(new java.awt.Color(240, 240, 240));
         jTextArea10.setColumns(20);
@@ -621,11 +647,11 @@ public class Principal extends javax.swing.JFrame {
             jDetalleAlgoritmoLookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDetalleAlgoritmoLookLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoLookLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel22)
-                .addGap(250, 250, 250))
+                .addGap(269, 269, 269))
         );
         jDetalleAlgoritmoLookLayout.setVerticalGroup(
             jDetalleAlgoritmoLookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,9 +659,12 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addComponent(jScrollPane12, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jDetalleAlgoritmoScan.setMinimumSize(new java.awt.Dimension(553, 432));
+        jDetalleAlgoritmoScan.setResizable(false);
 
         jTextArea9.setEditable(false);
         jTextArea9.setBackground(new java.awt.Color(240, 240, 240));
@@ -672,6 +701,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
+
+        jDetalleAlgoritmocScan.setMinimumSize(new java.awt.Dimension(553, 432));
+        jDetalleAlgoritmocScan.setResizable(false);
 
         jTextArea11.setEditable(false);
         jTextArea11.setBackground(new java.awt.Color(240, 240, 240));
@@ -1534,6 +1566,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
       jDetalleAlgoritmoScan.setVisible(true);
+      //centramos la vista
+        this.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jRBRoundRobinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBRoundRobinActionPerformed
