@@ -30,6 +30,7 @@ public class SimuladorController implements ActionListener {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     public void SimularFCFS() {
         AlgoritmoFCFS simuladorFCFS = new AlgoritmoFCFS();
         //inicializamos los componentes del algoritmo a simular
@@ -39,7 +40,7 @@ public class SimuladorController implements ActionListener {
         List<Proceso> listaArribo = _procesosModel.ObtenerListadoProcesos();
         simuladorFCFS.setListaArribo(listaArribo);
 
-        //mientras no hayan terminado los procesos, sigo voy a seguir la simulacion
+        //mientras no hayan terminado los procesos,  voy a seguir la simulacion
         while (!simuladorFCFS.isTerminaronProcesos()) {
 
             //un for o foreach para lista de procesos cargarlos en la cola de listos

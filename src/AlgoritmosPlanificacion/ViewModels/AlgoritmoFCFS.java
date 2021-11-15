@@ -31,10 +31,7 @@ public class AlgoritmoFCFS extends AlgoritmosSimuladorPlanificacion implements A
 
     }
 
-    @Override
-    public void MostrarResultado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     @Override
     public void InicializarComponentes() {
@@ -57,6 +54,11 @@ public class AlgoritmoFCFS extends AlgoritmosSimuladorPlanificacion implements A
 
     @Override
     public void OrdenarCola(ProcesoServido p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void MostrarResultado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

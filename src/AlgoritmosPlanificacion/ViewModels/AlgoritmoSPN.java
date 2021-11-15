@@ -5,21 +5,15 @@
  */
 package AlgoritmosPlanificacion.ViewModels;
 
-import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmoExpropiativoInterface;
-import Procesos.Proceso;
+import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmosInterface;
 
 /**
  *
  * @author LAGV
  */
-public class AlgoritmoSPN extends AlgoritmosSimuladorPlanificacion implements AlgoritmoExpropiativoInterface {
+public class AlgoritmoSPN extends AlgoritmosSimuladorPlanificacion implements AlgoritmosInterface {
 
     @Override
-    public void Expropiar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-      @Override
     public void EjecutarProceso() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

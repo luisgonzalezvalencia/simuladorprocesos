@@ -71,10 +71,6 @@ public class Proceso {
 
     public void setPrioridad(int prioridad) {
         this.prioridad = prioridad;
-    }
-
-  
-    
-    
+    }    
     
 }
