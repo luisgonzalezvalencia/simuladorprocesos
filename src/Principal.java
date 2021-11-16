@@ -14,7 +14,6 @@ import javax.swing.ButtonGroup;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Augusto
@@ -28,6 +27,7 @@ public class Principal extends javax.swing.JFrame {
     private final ProcesoTableModel ptm;
     private String algoritmoSeleccionado = "";
     private final ArrayList<Integer> listadoPeticiones;
+
     public Principal() {
         initComponents();
         jPanelDisco.setVisible(false);
@@ -35,11 +35,11 @@ public class Principal extends javax.swing.JFrame {
         mensajeError.setVisible(false);
         groupButton();
         ArrayList<Proceso> listado = new ArrayList();
-       int orden = 10;
+        int orden = 10;
         for (int i = 0; i < 10; i++) {
             Proceso p = new Proceso();
             p.setTiempoLlegada(orden);
-            p.setNombre("p"+i);
+            p.setNombre("p" + i);
             p.setRafagaCpu(2);
             orden -= 1;
             listado.add(p);
@@ -115,6 +115,24 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane13 = new javax.swing.JScrollPane();
         jTextArea11 = new javax.swing.JTextArea();
         jLabel23 = new javax.swing.JLabel();
+        jDetalleAlgoritmoFCFS = new javax.swing.JDialog();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        jTextArea12 = new javax.swing.JTextArea();
+        jLabel25 = new javax.swing.JLabel();
+        jDetalleAlgoritmoRR = new javax.swing.JDialog();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        jTextArea13 = new javax.swing.JTextArea();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jDetalleAlgoritmoSRT = new javax.swing.JDialog();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jTextArea14 = new javax.swing.JTextArea();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jDetalleAlgoritmoSPN = new javax.swing.JDialog();
+        jScrollPane17 = new javax.swing.JScrollPane();
+        jTextArea15 = new javax.swing.JTextArea();
+        jLabel28 = new javax.swing.JLabel();
         jPanelAlgoritmoPlanificacion = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -126,7 +144,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabelAlgoritmoSeleccionado = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButtonSimular = new javax.swing.JButton();
         mensajeError = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -152,11 +169,11 @@ public class Principal extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jRBRoundRobin = new javax.swing.JRadioButton();
-        jButtonDetalleFIFO1 = new javax.swing.JButton();
+        jButtonDetalleRR = new javax.swing.JButton();
         jRBSRT = new javax.swing.JRadioButton();
-        jButtonDetalleFIFO2 = new javax.swing.JButton();
+        jButtonDetalleSRT = new javax.swing.JButton();
         jRBSPN = new javax.swing.JRadioButton();
-        jButtonDetalleFIFO3 = new javax.swing.JButton();
+        jButtonDetalleSPN = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanelDisco = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -169,6 +186,8 @@ public class Principal extends javax.swing.JFrame {
         jTextFieldPeticionPos = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         btnProcesos = new javax.swing.JButton();
+        jButtonSimular1 = new javax.swing.JButton();
+        jButtonSimular = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -346,7 +365,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jPopUpMenuTable.add(jItemEliminarFila);
 
-        jDetalleAlgoritmoFifo.setPreferredSize(new java.awt.Dimension(550, 450));
         jDetalleAlgoritmoFifo.setResizable(false);
 
         jTextArea2.setEditable(false);
@@ -388,7 +406,6 @@ public class Principal extends javax.swing.JFrame {
 
         jDetalleAlgoritmoSwapping.setAlwaysOnTop(true);
         jDetalleAlgoritmoSwapping.setMinimumSize(new java.awt.Dimension(550, 450));
-        jDetalleAlgoritmoSwapping.setPreferredSize(new java.awt.Dimension(550, 450));
         jDetalleAlgoritmoSwapping.setResizable(false);
 
         jTextArea3.setEditable(false);
@@ -508,7 +525,6 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jDetalleAlgoritmoPeterson.setMinimumSize(new java.awt.Dimension(553, 386));
-        jDetalleAlgoritmoPeterson.setPreferredSize(new java.awt.Dimension(553, 386));
         jDetalleAlgoritmoPeterson.setResizable(false);
 
         jTextArea6.setEditable(false);
@@ -741,6 +757,188 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
+        jDetalleAlgoritmoFCFS.setMinimumSize(new java.awt.Dimension(553, 432));
+        jDetalleAlgoritmoFCFS.setResizable(false);
+
+        jTextArea12.setEditable(false);
+        jTextArea12.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea12.setColumns(20);
+        jTextArea12.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jTextArea12.setRows(5);
+        jTextArea12.setText("(First Come First Served  - First In First Out)\nSi se utiliza el algoritmo FCFS cuando se tiene que elegir a qué proceso \nasignar la CPU se escoge al que llevará más tiempo en la cola de listo. \nEl proceso se mantiene en la CPU hasta que se bloquea voluntariamente.\nLa ventaja de este algoritmo es su fácil implementación, sin embargo, \nno es válido para entornos interactivos ya que un proceso de mucho \ncálculo de CPU hace aumentar el tiempo de espera de los demás\nprocesos (Ocasionando inanición). Para implementar el algoritmo \nsólo se necesita mantener una cola con los procesos listos ordenada \npor tiempo de llegada. Cuando un proceso pasa de bloqueado a listo \nse sitúa el último de la cola.\n");
+        jTextArea12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextArea12.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea12.setPreferredSize(new java.awt.Dimension(350, 300));
+        jScrollPane14.setViewportView(jTextArea12);
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel25.setText("FCFS o FIFO");
+
+        javax.swing.GroupLayout jDetalleAlgoritmoFCFSLayout = new javax.swing.GroupLayout(jDetalleAlgoritmoFCFS.getContentPane());
+        jDetalleAlgoritmoFCFS.getContentPane().setLayout(jDetalleAlgoritmoFCFSLayout);
+        jDetalleAlgoritmoFCFSLayout.setHorizontalGroup(
+            jDetalleAlgoritmoFCFSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDetalleAlgoritmoFCFSLayout.createSequentialGroup()
+                .addGap(213, 213, 213)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 237, Short.MAX_VALUE))
+            .addGroup(jDetalleAlgoritmoFCFSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane14)
+                .addContainerGap())
+        );
+        jDetalleAlgoritmoFCFSLayout.setVerticalGroup(
+            jDetalleAlgoritmoFCFSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoFCFSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane14, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
+        jDetalleAlgoritmoRR.setMinimumSize(new java.awt.Dimension(580, 500));
+        jDetalleAlgoritmoRR.setResizable(false);
+
+        jTextArea13.setEditable(false);
+        jTextArea13.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea13.setColumns(20);
+        jTextArea13.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jTextArea13.setRows(5);
+        jTextArea13.setText("Este es uno de los algoritmos más antiguos, sencillos y equitativos en el\n reparto de la CPU entre los procesos, muy válido para entornos de \ntiempo compartido.\nCada proceso tiene asignado un intervalo de tiempo de ejecución, \nllamado quantum o quanto. Si el proceso agota su quantum de tiempo, \nse elige a otro proceso para ocupar la CPU. Si el proceso se bloquea o \ntermina antes de agotar su quantum también se alterna el uso de la CPU. \nEl round robin es muy fácil de implementar. Todo lo que necesita el\nplanificador es mantener una lista de los procesos listos.\n");
+        jTextArea13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextArea13.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea13.setPreferredSize(new java.awt.Dimension(350, 300));
+        jScrollPane15.setViewportView(jTextArea13);
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel26.setText("Round Robin o Turnos Rotativos");
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel30.setText("Algoritmo Expulsivo");
+
+        javax.swing.GroupLayout jDetalleAlgoritmoRRLayout = new javax.swing.GroupLayout(jDetalleAlgoritmoRR.getContentPane());
+        jDetalleAlgoritmoRR.getContentPane().setLayout(jDetalleAlgoritmoRRLayout);
+        jDetalleAlgoritmoRRLayout.setHorizontalGroup(
+            jDetalleAlgoritmoRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDetalleAlgoritmoRRLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoRRLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
+            .addGroup(jDetalleAlgoritmoRRLayout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jDetalleAlgoritmoRRLayout.setVerticalGroup(
+            jDetalleAlgoritmoRRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoRRLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane15, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jDetalleAlgoritmoSRT.setMinimumSize(new java.awt.Dimension(570, 570));
+        jDetalleAlgoritmoSRT.setResizable(false);
+
+        jTextArea14.setEditable(false);
+        jTextArea14.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea14.setColumns(20);
+        jTextArea14.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jTextArea14.setRows(5);
+        jTextArea14.setText("Es similar al SPN, con la diferencia de que si un nuevo proceso pasa a \nlisto se activa el dispatcher para ver si es más corto que lo que queda \npor ejecutar del proceso en ejecución. Si es así el proceso en ejecución\n pasa a listo y su tiempo de estimación se decrementa con el tiempo \nque ha estado ejecutándose.\nEn conclusión el SRT es expulsivo a diferencia del SPN.\n\n");
+        jTextArea14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextArea14.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea14.setPreferredSize(new java.awt.Dimension(350, 300));
+        jScrollPane16.setViewportView(jTextArea14);
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel27.setText("Algoritmo Expulsivo");
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel29.setText("Shortest Remaining Time (SRT)");
+
+        javax.swing.GroupLayout jDetalleAlgoritmoSRTLayout = new javax.swing.GroupLayout(jDetalleAlgoritmoSRT.getContentPane());
+        jDetalleAlgoritmoSRT.getContentPane().setLayout(jDetalleAlgoritmoSRTLayout);
+        jDetalleAlgoritmoSRTLayout.setHorizontalGroup(
+            jDetalleAlgoritmoSRTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDetalleAlgoritmoSRTLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jDetalleAlgoritmoSRTLayout.createSequentialGroup()
+                .addGap(188, 188, 188)
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jDetalleAlgoritmoSRTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoSRTLayout.createSequentialGroup()
+                    .addContainerGap(153, Short.MAX_VALUE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(114, 114, 114)))
+        );
+        jDetalleAlgoritmoSRTLayout.setVerticalGroup(
+            jDetalleAlgoritmoSRTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoSRTLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jDetalleAlgoritmoSRTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jDetalleAlgoritmoSRTLayout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(391, Short.MAX_VALUE)))
+        );
+
+        jDetalleAlgoritmoSPN.setMinimumSize(new java.awt.Dimension(553, 432));
+        jDetalleAlgoritmoSPN.setResizable(false);
+
+        jTextArea15.setEditable(false);
+        jTextArea15.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea15.setColumns(20);
+        jTextArea15.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jTextArea15.setRows(5);
+        jTextArea15.setText("Al igual que en el algoritmo FIFO las ráfagas se ejecutan sin interrupción, \npor tanto, sólo es útil para entornos batch. Su característica es que \ncuando se activa el planificador, éste elige la ráfaga de menor duración. \nEs decir, introduce una noción de prioridad entre ráfagas. \nHay que recordar que en los entornos batch se pueden hacer \nestimaciones del tiempo de ejecución de los procesos.\nComo era de esperarse, SPN favorece a los procesos cortos. \nSin embargo, un proceso largo puede esperar mucho tiempo antes de \nser atendido, es por esto que un proceso más largo que el promedio \nestá predispuesto a sufrir inanición.\n");
+        jTextArea15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextArea15.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextArea15.setPreferredSize(new java.awt.Dimension(350, 300));
+        jScrollPane17.setViewportView(jTextArea15);
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel28.setText("Shortest Process Next (SPN)");
+
+        javax.swing.GroupLayout jDetalleAlgoritmoSPNLayout = new javax.swing.GroupLayout(jDetalleAlgoritmoSPN.getContentPane());
+        jDetalleAlgoritmoSPN.getContentPane().setLayout(jDetalleAlgoritmoSPNLayout);
+        jDetalleAlgoritmoSPNLayout.setHorizontalGroup(
+            jDetalleAlgoritmoSPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDetalleAlgoritmoSPNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane17, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoSPNLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
+        );
+        jDetalleAlgoritmoSPNLayout.setVerticalGroup(
+            jDetalleAlgoritmoSPNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDetalleAlgoritmoSPNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane17, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulator");
 
@@ -846,13 +1044,6 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonSimular.setText("SIMULAR");
-        jButtonSimular.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSimularActionPerformed(evt);
-            }
-        });
-
         mensajeError.setForeground(new java.awt.Color(255, 51, 51));
         mensajeError.setText("Mensaje de Error");
 
@@ -861,13 +1052,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(342, 342, 342)
-                        .addComponent(jButtonSimular))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addComponent(mensajeError)))
+                .addGap(298, 298, 298)
+                .addComponent(mensajeError)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -875,8 +1061,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(mensajeError)
-                .addGap(9, 9, 9)
-                .addComponent(jButtonSimular))
+                .addGap(32, 32, 32))
         );
 
         jLabel4.setText("1) Algoritmos de Planificación de Procesos:");
@@ -1036,10 +1221,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButtonDetalleFIFO1.setText("Detalles");
-        jButtonDetalleFIFO1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDetalleRR.setText("Detalles");
+        jButtonDetalleRR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDetalleFIFO1ActionPerformed(evt);
+                jButtonDetalleRRActionPerformed(evt);
             }
         });
 
@@ -1050,10 +1235,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButtonDetalleFIFO2.setText("Detalles");
-        jButtonDetalleFIFO2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDetalleSRT.setText("Detalles");
+        jButtonDetalleSRT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDetalleFIFO2ActionPerformed(evt);
+                jButtonDetalleSRTActionPerformed(evt);
             }
         });
 
@@ -1064,10 +1249,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButtonDetalleFIFO3.setText("Detalles");
-        jButtonDetalleFIFO3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDetalleSPN.setText("Detalles");
+        jButtonDetalleSPN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDetalleFIFO3ActionPerformed(evt);
+                jButtonDetalleSPNActionPerformed(evt);
             }
         });
 
@@ -1158,6 +1343,20 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButtonSimular1.setText("SIMULAR");
+        jButtonSimular1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSimular1ActionPerformed(evt);
+            }
+        });
+
+        jButtonSimular.setText("SIMULAR");
+        jButtonSimular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSimularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1178,13 +1377,10 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(jRBSPN))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonDetalleFIFO3)
-                                    .addComponent(jButtonDetalleFIFO2)
-                                    .addComponent(jButtonDetalleFIFO1)
-                                    .addComponent(jButtonDetalleFIFO)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jButtonDetalleSPN)
+                                    .addComponent(jButtonDetalleSRT)
+                                    .addComponent(jButtonDetalleRR)
+                                    .addComponent(jButtonDetalleFIFO))))
                         .addGap(111, 111, 111)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1234,6 +1430,14 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(0, 155, Short.MAX_VALUE))
                     .addComponent(jPanelDisco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonSimular1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonSimular, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1251,15 +1455,15 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRBRoundRobin)
-                            .addComponent(jButtonDetalleFIFO1))
+                            .addComponent(jButtonDetalleRR))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRBSRT)
-                            .addComponent(jButtonDetalleFIFO2))
+                            .addComponent(jButtonDetalleSRT))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRBSPN)
-                            .addComponent(jButtonDetalleFIFO3)))
+                            .addComponent(jButtonDetalleSPN)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1294,8 +1498,11 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(jButton9)))))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnProcesos)
-                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnProcesos)
+                    .addComponent(jButtonSimular1)
+                    .addComponent(jButtonSimular))
+                .addGap(18, 18, 18)
                 .addComponent(jPanelDisco, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1415,13 +1622,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jTableProcesosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProcesosMouseClicked
-        if(evt.getButton() == 3){
+        if (evt.getButton() == 3) {
             jPopUpMenuTable.setLocation(evt.getLocationOnScreen());
             jPopUpMenuTable.show(evt.getComponent(), evt.getX(), evt.getY());
-            jPopUpMenuTable.setVisible(true);            
-        }else{jPopUpMenuTable.setVisible(false);}
-        
-       
+            jPopUpMenuTable.setVisible(true);
+        } else {
+            jPopUpMenuTable.setVisible(false);
+        }
+
+
     }//GEN-LAST:event_jTableProcesosMouseClicked
 
     private void jItemAgregarFilaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jItemAgregarFilaMouseClicked
@@ -1443,38 +1652,38 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jItemEliminarFilaActionPerformed
 
     private void jButtonSimularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimularActionPerformed
-        
+
         //for (Proceso listProces : ptm.getSelectedRows()) {
         //    if(listProces.isSeleccionado()){
         //        System.out.println(listProces.getNombre());
         //    }
         //};
-        if(ptm.getSelectedRows().size()<1){
+        if (ptm.getSelectedRows().size() < 1) {
             mensajeError.setText("Debe seleccionar al menos 1 proceso.");
             mensajeError.setVisible(true);
-        }else {
+        } else {
             mensajeError.setText("");
             mensajeError.setVisible(false);
         }
-        
-        switch(this.algoritmoSeleccionado){
-            case("SSTF"):
+
+        switch (this.algoritmoSeleccionado) {
+            case ("SSTF"):
                 //TODO scan
                 DiscoView dv = new DiscoView(Integer.parseInt(jTextFieldPosicionDisco.getText()), listadoPeticiones);
                 dv.setVisible(true);
                 break;
-            case("LOOK"):
+            case ("LOOK"):
                 //TODO LOOK
                 break;
-            case("SWAPPING"):
+            case ("SWAPPING"):
                 //TODO SWAPPING
                 SwappingView sw = new SwappingView(ptm.getSelectedRows());
                 sw.setVisible(true);
                 break;
-            case("LRU"):
+            case ("LRU"):
                 //TODO LRU
                 break;
-            case("LAMPORT"):
+            case ("LAMPORT"):
                 //TODO LAMPORT
                 LamportView lv = new LamportView(ptm.getSelectedRows());
                 lv.setVisible(true);
@@ -1483,7 +1692,7 @@ public class Principal extends javax.swing.JFrame {
                 mensajeError.setText(mensajeError.getText() + " Debe seleccionar un Algoritmo.");
                 mensajeError.setVisible(true);
         }
-        
+
     }//GEN-LAST:event_jButtonSimularActionPerformed
 
     private void jRBFifoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBFifoActionPerformed
@@ -1493,7 +1702,7 @@ public class Principal extends javax.swing.JFrame {
         jPanelAlgoritmoPlanificacion.setVisible(false);
     }//GEN-LAST:event_jRBFifoActionPerformed
 
-    
+
     private void jRBSwappingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBSwappingActionPerformed
         // TODO add your handling code here:
         this.algoritmoSeleccionado = "SWAPPING";
@@ -1501,16 +1710,15 @@ public class Principal extends javax.swing.JFrame {
         jPanelAlgoritmoPlanificacion.setVisible(true);
     }//GEN-LAST:event_jRBSwappingActionPerformed
 
-    
-    
+
     private void jRBSwapping1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBSwapping1ActionPerformed
-        
+
     }//GEN-LAST:event_jRBSwapping1ActionPerformed
 
-   
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if(!jTextFieldPeticionPos.getText().isEmpty()){
+        if (!jTextFieldPeticionPos.getText().isEmpty()) {
             listadoPeticiones.add(Integer.parseInt(jTextFieldPeticionPos.getText()));
             jTAListDisc.setText(jTAListDisc.getText() + "\n" + "Posicion: " + jTextFieldPeticionPos.getText());
         }
@@ -1521,23 +1729,28 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDetalleSwappingActionPerformed
 
     private void jButtonDetalleFIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleFIFOActionPerformed
-      
+        jDetalleAlgoritmoFCFS.setVisible(true);
+        jDetalleAlgoritmoFCFS.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonDetalleFIFOActionPerformed
 
     private void jButtonDetalleScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleScanActionPerformed
         jDetalleAlgoritmoSSTF.setVisible(true);
+        jDetalleAlgoritmoSSTF.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonDetalleScanActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         jDetalleAlgoritmoDekker.setVisible(true);
+        jDetalleAlgoritmoDekker.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButtonDetalleSwapping1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleSwapping1ActionPerformed
         jDetalleAlgoritmoPeterson.setVisible(true);
+        jDetalleAlgoritmoPeterson.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonDetalleSwapping1ActionPerformed
 
     private void jButtonDetalleLRUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleLRUActionPerformed
         jDetalleAlgoritmoLRU.setVisible(true);
+        jDetalleAlgoritmoLRU.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonDetalleLRUActionPerformed
 
     private void jRBDekkerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBDekkerActionPerformed
@@ -1546,10 +1759,12 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButtonDetalleSwapping2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleSwapping2ActionPerformed
         jDetalleAlgoritmoLamport.setVisible(true);
+        jDetalleAlgoritmoLamport.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonDetalleSwapping2ActionPerformed
 
     private void jButtonDetalleLookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleLookActionPerformed
         jDetalleAlgoritmoLook.setVisible(true);
+        jDetalleAlgoritmoLook.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonDetalleLookActionPerformed
 
     private void cScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cScanActionPerformed
@@ -1558,6 +1773,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         jDetalleAlgoritmocScan.setVisible(true);
+        jDetalleAlgoritmocScan.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void SCANActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SCANActionPerformed
@@ -1565,32 +1781,37 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_SCANActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-      jDetalleAlgoritmoScan.setVisible(true);
-      //centramos la vista
-        this.setLocationRelativeTo(null);
+        jDetalleAlgoritmoScan.setVisible(true);
+        //centramos la vista
+        jDetalleAlgoritmoScan.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jRBRoundRobinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBRoundRobinActionPerformed
         // TODO add your handling code here:
-        this.algoritmoSeleccionado = "FCFS";
+        this.algoritmoSeleccionado = "RR";
         jPanelDisco.setVisible(false);
         jPanelAlgoritmoPlanificacion.setVisible(false);
     }//GEN-LAST:event_jRBRoundRobinActionPerformed
 
-    private void jButtonDetalleFIFO1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleFIFO1ActionPerformed
+    private void jButtonDetalleRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleRRActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonDetalleFIFO1ActionPerformed
+        jDetalleAlgoritmoRR.setVisible(true);
+        //centramos la vista
+        jDetalleAlgoritmoRR.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButtonDetalleRRActionPerformed
 
     private void jRBSRTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBSRTActionPerformed
         // TODO add your handling code here:
-        this.algoritmoSeleccionado = "FCFS";
+        this.algoritmoSeleccionado = "SRT";
         jPanelDisco.setVisible(false);
         jPanelAlgoritmoPlanificacion.setVisible(false);
     }//GEN-LAST:event_jRBSRTActionPerformed
 
-    private void jButtonDetalleFIFO2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleFIFO2ActionPerformed
+    private void jButtonDetalleSRTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleSRTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonDetalleFIFO2ActionPerformed
+        jDetalleAlgoritmoSRT.setVisible(true);
+        jDetalleAlgoritmoSRT.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButtonDetalleSRTActionPerformed
 
     private void jRBSPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBSPNActionPerformed
         // TODO add your handling code here:
@@ -1599,9 +1820,11 @@ public class Principal extends javax.swing.JFrame {
         jPanelAlgoritmoPlanificacion.setVisible(false);
     }//GEN-LAST:event_jRBSPNActionPerformed
 
-    private void jButtonDetalleFIFO3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleFIFO3ActionPerformed
+    private void jButtonDetalleSPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleSPNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonDetalleFIFO3ActionPerformed
+        jDetalleAlgoritmoSPN.setVisible(true);
+        jDetalleAlgoritmoSPN.setLocationRelativeTo(null);        
+    }//GEN-LAST:event_jButtonDetalleSPNActionPerformed
 
     private void btnProcesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosActionPerformed
         // TODO add your handling code here:
@@ -1610,7 +1833,10 @@ public class Principal extends javax.swing.JFrame {
         procesosView.DelegarAcciones();
     }//GEN-LAST:event_btnProcesosActionPerformed
 
-    
+    private void jButtonSimular1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimular1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSimular1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1640,15 +1866,16 @@ public class Principal extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Principal().setVisible(true);
             }
         });
     }
-    
+
     private void groupButton() {
-        ButtonGroup bg1 = new ButtonGroup( );
-        
+        ButtonGroup bg1 = new ButtonGroup();
+
         bg1.add(jRBSSFT);
         bg1.add(jRBLook);
         bg1.add(jRBLRU);
@@ -1675,22 +1902,27 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonDetalleFIFO;
-    private javax.swing.JButton jButtonDetalleFIFO1;
-    private javax.swing.JButton jButtonDetalleFIFO2;
-    private javax.swing.JButton jButtonDetalleFIFO3;
     private javax.swing.JButton jButtonDetalleLRU;
     private javax.swing.JButton jButtonDetalleLook;
+    private javax.swing.JButton jButtonDetalleRR;
+    private javax.swing.JButton jButtonDetalleSPN;
+    private javax.swing.JButton jButtonDetalleSRT;
     private javax.swing.JButton jButtonDetalleScan;
     private javax.swing.JButton jButtonDetalleSwapping;
     private javax.swing.JButton jButtonDetalleSwapping1;
     private javax.swing.JButton jButtonDetalleSwapping2;
     private javax.swing.JButton jButtonSimular;
+    private javax.swing.JButton jButtonSimular1;
     private javax.swing.JDialog jDetalleAlgoritmoDekker;
+    private javax.swing.JDialog jDetalleAlgoritmoFCFS;
     private javax.swing.JDialog jDetalleAlgoritmoFifo;
     private javax.swing.JDialog jDetalleAlgoritmoLRU;
     private javax.swing.JDialog jDetalleAlgoritmoLamport;
     private javax.swing.JDialog jDetalleAlgoritmoLook;
     private javax.swing.JDialog jDetalleAlgoritmoPeterson;
+    private javax.swing.JDialog jDetalleAlgoritmoRR;
+    private javax.swing.JDialog jDetalleAlgoritmoSPN;
+    private javax.swing.JDialog jDetalleAlgoritmoSRT;
     private javax.swing.JDialog jDetalleAlgoritmoSSTF;
     private javax.swing.JDialog jDetalleAlgoritmoScan;
     private javax.swing.JDialog jDetalleAlgoritmoSwapping;
@@ -1715,7 +1947,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1753,6 +1991,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
+    private javax.swing.JScrollPane jScrollPane17;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1767,6 +2009,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea10;
     private javax.swing.JTextArea jTextArea11;
+    private javax.swing.JTextArea jTextArea12;
+    private javax.swing.JTextArea jTextArea13;
+    private javax.swing.JTextArea jTextArea14;
+    private javax.swing.JTextArea jTextArea15;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
