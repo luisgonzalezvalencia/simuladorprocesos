@@ -6,6 +6,7 @@
 package AlgoritmosPlanificacion.ViewModels;
 
 import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmosInterface;
+import java.util.Collections;
 
 /**
  *
@@ -13,26 +14,12 @@ import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmosInterface;
  */
 public class AlgoritmoSPN extends AlgoritmosSimuladorPlanificacion implements AlgoritmosInterface {
 
-    @Override
-    public void EjecutarProceso() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        @Override
+    public void OrdenarCola(ProcesoServido proceso) {
+        this.listaListos.add(proceso);
+        Collections.sort(this.listaListos);
+       
     }
 
-    @Override
-    public void MostrarResultado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void InicializarComponentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void OrdenarCola(ProcesoServido p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
     
 }

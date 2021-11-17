@@ -5,9 +5,9 @@
  */
 package AlgoritmosPlanificacion.ViewModels;
 
-
 import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmoExpropiativoInterface;
 import Procesos.Proceso;
+import java.util.Collections;
 
 /**
  *
@@ -16,29 +16,27 @@ import Procesos.Proceso;
 public class AlgoritmoSRT extends AlgoritmosSimuladorPlanificacion implements AlgoritmoExpropiativoInterface {
 
     @Override
-    public void EjecutarProceso() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void OrdenarCola(ProcesoServido proceso) {
+        this.listaListos.add(proceso);
+        Collections.sort(this.listaListos);
+        if ( this.cpuEnUso && this.listaListos.get(0).getRafagasRestantesCPU() < this.procesoEjecutandose.getRafagasRestantesCPU()) {
+            this.Expropiar();
+        }
 
-    @Override
-    public void MostrarResultado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void InicializarComponentes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void OrdenarCola(ProcesoServido p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void Expropiar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        if (this.procesoEjecutandose != null) {
+            // libero la cpu
+            this.cpuEnUso = false;
+            //agregar el proceso a la cola de listos
+            this.OrdenarCola(this.procesoEjecutandose);
+            // quitar el proceso de la cpu
+            this.procesoEjecutandose = null;
+
+        }
     }
 
-  
 }

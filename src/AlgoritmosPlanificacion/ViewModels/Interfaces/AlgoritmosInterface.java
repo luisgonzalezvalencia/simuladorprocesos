@@ -12,8 +12,5 @@ import AlgoritmosPlanificacion.ViewModels.ProcesoServido;
  * @author LAGV
  */
 public interface AlgoritmosInterface {
-    public void InicializarComponentes();
     public void OrdenarCola(ProcesoServido p);
-    public void EjecutarProceso();
-    public void MostrarResultado();
 }

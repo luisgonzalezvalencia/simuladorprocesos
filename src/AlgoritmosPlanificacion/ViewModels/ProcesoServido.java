@@ -10,7 +10,7 @@ package AlgoritmosPlanificacion.ViewModels;
  * @author LAGV clase para abm de procesos Ejemplo funcionamiento con
  * prioridades: https://www.youtube.com/watch?v=BxjI8jM94Ss
  */
-public class ProcesoServido extends Proceso {
+public class ProcesoServido extends Proceso implements Comparable<ProcesoServido> {
 
     //atributos del proceso servido (adicionales a Proceso por herencia)
     int rafagasRestantesCPU;
@@ -76,6 +76,11 @@ public class ProcesoServido extends Proceso {
 
     public void setTiempoPromedioTrTs(float tiempoPromedioTrTs) {
         this.tiempoPromedioTrTs = tiempoPromedioTrTs;
+    }
+
+    @Override
+    public int compareTo(ProcesoServido t) {
+        return String.valueOf(this.getRafagasRestantesCPU()).compareTo(String.valueOf(t.getRafagasRestantesCPU()));
     }
 
 }

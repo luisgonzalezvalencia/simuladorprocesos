@@ -7,6 +7,9 @@ package AlgoritmosPlanificacion.Controllers;
 
 import AlgoritmosPlanificacion.Models.ProcesosModel;
 import AlgoritmosPlanificacion.ViewModels.AlgoritmoFCFS;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmoRR;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmoSPN;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmoSRT;
 import AlgoritmosPlanificacion.ViewModels.Proceso;
 import AlgoritmosPlanificacion.ViewModels.ProcesoServido;
 import AlgoritmosPlanificacion.Views.SimuladorView;
@@ -42,7 +45,7 @@ public class SimuladorController implements ActionListener {
         }
 
         //test de fcfs
-        this.SimularFCFS();
+        this.SimularSRT();
         //agregamos los listeners de las acciones a la vista
 //        this.procesosVista.btnRecargarListado.addActionListener(this);
 //        this.procesosVista.btnGuardar.addActionListener(this);
@@ -75,29 +78,6 @@ public class SimuladorController implements ActionListener {
 
             //llamamos al ejecutador de procesos
             simuladorFCFS.EjecutarProceso();
-            //si la cpu no está en uso, llamo a la funcion ejecutar del algoritmo correcpondiente
-//            if (!simuladorFCFS.isCpuEnUso()) {
-//                //llamo al metodo de ejecutar procesos que se encarga de verificar la cola, etc
-//                simuladorFCFS.EjecutarProceso();
-//            } else {
-//                //si la cpu esta en uso resto una ejecucion al proceso que se está ejecutando
-//                ProcesoServido procesoEjecutandose = simuladorFCFS.getProcesoEjecutandose();
-//                procesoEjecutandose.setRafagasRestantesCPU(procesoEjecutandose.getRafagasRestantesCPU() - 1);
-//
-//                //si el proceso que estaba ejecutandose ya termino sus rafagas de cpu, libero
-//                if (procesoEjecutandose.getRafagasRestantesCPU() <= 0) {
-//                    procesoEjecutandose.setTiempoFinalizacion(simuladorFCFS.getTiempoCPU());
-//                    //asegurar que meto una copia en la lista de procesos terminados
-//                    //y no una direccion de memoria ya que luego borro la variable que indica el proceso ejecutandose
-//                    ProcesoServido procesoTerminado = new ProcesoServido(procesoEjecutandose.getId(), procesoEjecutandose.getNombreProceso(), procesoEjecutandose.getTiempoArribo(), procesoEjecutandose.getRafagaCPU(), procesoEjecutandose.getPrioridad(), 0);
-//                    procesoTerminado.setTiempoFinalizacion(procesoEjecutandose.getTiempoFinalizacion());
-//                    //el resto de tiempos se van a calcular dentro del proceso de mostrar los resultados
-//
-//                    //quitamos el proceso de la cpu
-//                    simuladorFCFS.setProcesoEjecutandose(null);
-//                    simuladorFCFS.setCpuEnUso(false);
-//                }
-//            }
 
             //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
             MostrarSimulacionEnVista(simuladorFCFS.getListaArribo(), simuladorFCFS.getListaListos(), simuladorFCFS.getProcesoEjecutandose(), simuladorFCFS.getListaProcesosTerminados(), simuladorFCFS.getTiempoCPU(), simuladorFCFS.isCpuEnUso(), "FCFS");
@@ -108,12 +88,13 @@ public class SimuladorController implements ActionListener {
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-
             //incremento el tiempo de CPU
             simuladorFCFS.setTiempoCPU(simuladorFCFS.getTiempoCPU() + 1);
 
         }
-
+        
+        //siempre tengo un tiempo  mas, se lo quito
+        simuladorFCFS.setTiempoCPU(simuladorFCFS.getTiempoCPU() - 1);
         simuladorFCFS.MostrarResultado();
         //aqui mostramos los resultados en la tabla de ejecucion
         //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
@@ -121,15 +102,161 @@ public class SimuladorController implements ActionListener {
 
     }
 
-    public void SimularRR() {
+    public void SimularRR(int quantum) {
+        int quantumCont = quantum;
+
+        AlgoritmoRR simuladorRR = new AlgoritmoRR();
+        //inicializamos los componentes del algoritmo a simular
+        simuladorRR.InicializarComponentes();
+
+        //seteamos la lista de procesos por arribar obteniendolos del file        
+        List<Proceso> listaArribo = this.procesosUtilizar;
+        simuladorRR.setListaArribo(listaArribo);
+
+        //mientras no hayan terminado los procesos,  voy a seguir la simulacion
+        while (!simuladorRR.isTerminaronProcesos()) {
+
+            //un for o foreach para lista de procesos cargarlos en la cola de listos
+            for (Proceso procesoArribar : simuladorRR.getListaArribo()) {
+                if (procesoArribar.getTiempoArribo() == simuladorRR.getTiempoCPU()) {
+                    //creo una instancia de proceso servido y seteo los parametros del proceso por arribar                    
+                    ProcesoServido procesoServido = new ProcesoServido(procesoArribar.getId(), procesoArribar.getNombreProceso(), procesoArribar.getTiempoArribo(), procesoArribar.getRafagaCPU(), procesoArribar.getPrioridad(), procesoArribar.getRafagaCPU());
+                    //indico al simulador que ordene la cola con el proceso servido
+                    simuladorRR.OrdenarCola(procesoServido);
+                }
+            }
+
+            //llamamos al ejecutador de procesos
+            simuladorRR.EjecutarProceso();
+
+            //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
+            MostrarSimulacionEnVista(simuladorRR.getListaArribo(), simuladorRR.getListaListos(), simuladorRR.getProcesoEjecutandose(), simuladorRR.getListaProcesosTerminados(), simuladorRR.getTiempoCPU(), simuladorRR.isCpuEnUso(), "FCFS");
+
+            //descontamos el quantum y verificamos si ees necesario expropiar
+            quantumCont -= 1;
+            if (quantumCont == 0) {
+                simuladorRR.Expropiar();
+                quantumCont = quantum;
+            }
+
+            //simulamos que el reloj de la CPU funcione mas lento para poder ver en detalle los movimientos de cada algoritmo
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            //incremento el tiempo de CPU
+            simuladorRR.setTiempoCPU(simuladorRR.getTiempoCPU() + 1);
+
+        }
+
+        //siempre tengo un tiempo  mas, se lo quito
+        simuladorRR.setTiempoCPU(simuladorRR.getTiempoCPU() - 1);
+        //calculamos los resultados
+        simuladorRR.MostrarResultado();
+        //aqui mostramos los resultados en la tabla de ejecucion
+        //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
+        MostrarSimulacionEnVista(simuladorRR.getListaArribo(), simuladorRR.getListaListos(), simuladorRR.getProcesoEjecutandose(), simuladorRR.getListaProcesosTerminados(), simuladorRR.getTiempoCPU(), simuladorRR.isCpuEnUso(), "FCFS");
 
     }
 
     public void SimularSRT() {
+        
+        AlgoritmoSRT simuladorSRT = new AlgoritmoSRT();
+        //inicializamos los componentes del algoritmo a simular
+        simuladorSRT.InicializarComponentes();
+
+        //seteamos la lista de procesos por arribar obteniendolos del file        
+        List<Proceso> listaArribo = this.procesosUtilizar;
+        simuladorSRT.setListaArribo(listaArribo);
+
+        //mientras no hayan terminado los procesos,  voy a seguir la simulacion
+        while (!simuladorSRT.isTerminaronProcesos()) {
+
+            //un for o foreach para lista de procesos cargarlos en la cola de listos
+            for (Proceso procesoArribar : simuladorSRT.getListaArribo()) {
+                if (procesoArribar.getTiempoArribo() == simuladorSRT.getTiempoCPU()) {
+                    //creo una instancia de proceso servido y seteo los parametros del proceso por arribar                    
+                    ProcesoServido procesoServido = new ProcesoServido(procesoArribar.getId(), procesoArribar.getNombreProceso(), procesoArribar.getTiempoArribo(), procesoArribar.getRafagaCPU(), procesoArribar.getPrioridad(), procesoArribar.getRafagaCPU());
+                    //indico al simulador que ordene la cola con el proceso servido
+                    simuladorSRT.OrdenarCola(procesoServido);
+                }
+            }
+
+            //llamamos al ejecutador de procesos
+            simuladorSRT.EjecutarProceso();
+
+            //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
+            MostrarSimulacionEnVista(simuladorSRT.getListaArribo(), simuladorSRT.getListaListos(), simuladorSRT.getProcesoEjecutandose(), simuladorSRT.getListaProcesosTerminados(), simuladorSRT.getTiempoCPU(), simuladorSRT.isCpuEnUso(), "FCFS");
+
+            //simulamos que el reloj de la CPU funcione mas lento para poder ver en detalle los movimientos de cada algoritmo
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            //incremento el tiempo de CPU
+            simuladorSRT.setTiempoCPU(simuladorSRT.getTiempoCPU() + 1);
+
+        }
+        
+        //siempre tengo un tiempo  mas, se lo quito
+        simuladorSRT.setTiempoCPU(simuladorSRT.getTiempoCPU() - 1);
+        simuladorSRT.MostrarResultado();
+        //aqui mostramos los resultados en la tabla de ejecucion
+        //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
+        MostrarSimulacionEnVista(simuladorSRT.getListaArribo(), simuladorSRT.getListaListos(), simuladorSRT.getProcesoEjecutandose(), simuladorSRT.getListaProcesosTerminados(), simuladorSRT.getTiempoCPU(), simuladorSRT.isCpuEnUso(), "FCFS");
+
+
 
     }
 
     public void SimularSPN() {
+         AlgoritmoSPN simuladorSPN = new AlgoritmoSPN();
+        //inicializamos los componentes del algoritmo a simular
+        simuladorSPN.InicializarComponentes();
+
+        //seteamos la lista de procesos por arribar obteniendolos del file        
+        List<Proceso> listaArribo = this.procesosUtilizar;
+        simuladorSPN.setListaArribo(listaArribo);
+
+        //mientras no hayan terminado los procesos,  voy a seguir la simulacion
+        while (!simuladorSPN.isTerminaronProcesos()) {
+
+            //un for o foreach para lista de procesos cargarlos en la cola de listos
+            for (Proceso procesoArribar : simuladorSPN.getListaArribo()) {
+                if (procesoArribar.getTiempoArribo() == simuladorSPN.getTiempoCPU()) {
+                    //creo una instancia de proceso servido y seteo los parametros del proceso por arribar                    
+                    ProcesoServido procesoServido = new ProcesoServido(procesoArribar.getId(), procesoArribar.getNombreProceso(), procesoArribar.getTiempoArribo(), procesoArribar.getRafagaCPU(), procesoArribar.getPrioridad(), procesoArribar.getRafagaCPU());
+                    //indico al simulador que ordene la cola con el proceso servido
+                    simuladorSPN.OrdenarCola(procesoServido);
+                }
+            }
+
+            //llamamos al ejecutador de procesos
+            simuladorSPN.EjecutarProceso();
+
+            //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
+            MostrarSimulacionEnVista(simuladorSPN.getListaArribo(), simuladorSPN.getListaListos(), simuladorSPN.getProcesoEjecutandose(), simuladorSPN.getListaProcesosTerminados(), simuladorSPN.getTiempoCPU(), simuladorSPN.isCpuEnUso(), "FCFS");
+
+            //simulamos que el reloj de la CPU funcione mas lento para poder ver en detalle los movimientos de cada algoritmo
+//            try {
+//                Thread.sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+            //incremento el tiempo de CPU
+            simuladorSPN.setTiempoCPU(simuladorSPN.getTiempoCPU() + 1);
+
+        }
+        
+        //siempre tengo un tiempo  mas, se lo quito
+        simuladorSPN.setTiempoCPU(simuladorSPN.getTiempoCPU() - 1);
+        simuladorSPN.MostrarResultado();
+        //aqui mostramos los resultados en la tabla de ejecucion
+        //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
+        MostrarSimulacionEnVista(simuladorSPN.getListaArribo(), simuladorSPN.getListaListos(), simuladorSPN.getProcesoEjecutandose(), simuladorSPN.getListaProcesosTerminados(), simuladorSPN.getTiempoCPU(), simuladorSPN.isCpuEnUso(), "FCFS");
+
 
     }
 
