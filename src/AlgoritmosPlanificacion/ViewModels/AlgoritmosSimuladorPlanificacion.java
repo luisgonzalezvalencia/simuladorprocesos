@@ -17,11 +17,11 @@ public class AlgoritmosSimuladorPlanificacion {
     List<Proceso> listaArribo;
     List<ProcesoServido> listaListos;
     int tiempoCPU;
-    ProcesoServido procesoEnCPU;
     List<ProcesoServido> listaProcesosTerminados;
     boolean cpuEnUso;
     ProcesoServido procesoEjecutandose;
     boolean terminaronProcesos;
+    float tiempoPromedioTotal;
     
     
     public AlgoritmosSimuladorPlanificacion() {
@@ -52,13 +52,6 @@ public class AlgoritmosSimuladorPlanificacion {
         this.tiempoCPU = tiempoCPU;
     }
 
-    public ProcesoServido getProcesoEnCPU() {
-        return procesoEnCPU;
-    }
-
-    public void setProcesoEnCPU(ProcesoServido procesoEnCPU) {
-        this.procesoEnCPU = procesoEnCPU;
-    }
 
     public List<ProcesoServido> getListaProcesosTerminados() {
         return listaProcesosTerminados;
@@ -90,6 +83,14 @@ public class AlgoritmosSimuladorPlanificacion {
 
     public void setTerminaronProcesos(boolean terminaronProcesos) {
         this.terminaronProcesos = terminaronProcesos;
+    }
+
+    public float getTiempoPromedioTotal() {
+        return tiempoPromedioTotal;
+    }
+
+    public void setTiempoPromedioTotal(float tiempoPromedioTotal) {
+        this.tiempoPromedioTotal = tiempoPromedioTotal;
     }
 
    

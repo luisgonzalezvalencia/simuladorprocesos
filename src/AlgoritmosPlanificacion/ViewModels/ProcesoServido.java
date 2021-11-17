@@ -17,7 +17,9 @@ public class ProcesoServido extends Proceso {
     int tiempoFinalizacion;
     int tiempoEstanciaTr;
     //tr/ts
-    int tiempoPromedioTrTs;
+    float tiempoPromedioTrTs;
+    
+    int tiempoInicio;
 
     public ProcesoServido() {
 
@@ -58,11 +60,21 @@ public class ProcesoServido extends Proceso {
         this.tiempoEstanciaTr = tiempoEstanciaTr;
     }
 
-    public int getTiempoPromedioTrTs() {
+   
+
+    public int getTiempoInicio() {
+        return tiempoInicio;
+    }
+
+    public void setTiempoInicio(int tiempoInicio) {
+        this.tiempoInicio = tiempoInicio;
+    }
+
+    public float getTiempoPromedioTrTs() {
         return tiempoPromedioTrTs;
     }
 
-    public void setTiempoPromedioTrTs(int tiempoPromedioTrTs) {
+    public void setTiempoPromedioTrTs(float tiempoPromedioTrTs) {
         this.tiempoPromedioTrTs = tiempoPromedioTrTs;
     }
 

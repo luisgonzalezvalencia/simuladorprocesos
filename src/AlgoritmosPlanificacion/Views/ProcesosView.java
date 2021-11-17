@@ -115,6 +115,11 @@ public class ProcesosView extends javax.swing.JFrame {
         btnRecargarListado.setText("Listar/Recargar");
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminarProceso.setText("Eliminar");
 
@@ -229,13 +234,10 @@ public class ProcesosView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPrioridadKeyTyped
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        //instancio la vista y el controlador, y le paso la vista visible al controller para que se encargue de setear los datos
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnEditar;

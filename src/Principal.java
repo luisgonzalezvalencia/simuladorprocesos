@@ -4,6 +4,7 @@ import Algoritmos.LamportView;
 import Algoritmos.SwappingView;
 import AlgoritmosPlanificacion.Controllers.ProcesosController;
 import AlgoritmosPlanificacion.Views.ProcesosView;
+import AlgoritmosPlanificacion.Views.SimuladorView;
 import Procesos.Proceso;
 import Procesos.ProcesoTableModel;
 import java.util.ArrayList;
@@ -1834,7 +1835,10 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProcesosActionPerformed
 
     private void jButtonSimular1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimular1ActionPerformed
-        // TODO add your handling code here:
+
+        //abrimos la ventana de creaciòn/Ediciòn de procesos
+        SimuladorView simuladorView = new SimuladorView();
+        simuladorView.DelegarAcciones("");
     }//GEN-LAST:event_jButtonSimular1ActionPerformed
 
     /**
