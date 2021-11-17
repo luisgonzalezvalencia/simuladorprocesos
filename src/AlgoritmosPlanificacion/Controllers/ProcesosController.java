@@ -6,7 +6,7 @@
 package AlgoritmosPlanificacion.Controllers;
 
 import java.util.List;
-import AlgoritmosPlanificacion.ViewModels.Proceso;
+import AlgoritmosPlanificacion.ViewModels.Procesos.Proceso;
 import AlgoritmosPlanificacion.Models.ProcesosModel;
 import AlgoritmosPlanificacion.Views.ProcesosView;
 import java.awt.event.ActionEvent;

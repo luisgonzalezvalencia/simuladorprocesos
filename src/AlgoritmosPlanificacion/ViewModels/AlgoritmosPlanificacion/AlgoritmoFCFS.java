@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AlgoritmosPlanificacion.ViewModels;
+package AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion;
 
-import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmosInterface;
-import java.util.ArrayList;
+import AlgoritmosPlanificacion.ViewModels.Procesos.ProcesoServido;
 
 /**
  *
  * @author LAGV
  */
-public class AlgoritmoFCFS extends AlgoritmosSimuladorPlanificacion implements AlgoritmosInterface {
+public class AlgoritmoFCFS extends AlgoritmosPlanificacion {
 
 
     @Override
@@ -21,5 +20,6 @@ public class AlgoritmoFCFS extends AlgoritmosSimuladorPlanificacion implements A
         this.listaListos.add(proceso);
         
     }
+
 
 }

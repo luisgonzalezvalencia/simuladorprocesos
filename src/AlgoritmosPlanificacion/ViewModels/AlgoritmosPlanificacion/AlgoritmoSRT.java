@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AlgoritmosPlanificacion.ViewModels;
+package AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion;
 
-import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmoExpropiativoInterface;
-import Procesos.Proceso;
+import AlgoritmosPlanificacion.ViewModels.Procesos.ProcesoServido;
 import java.util.Collections;
 
 /**
  *
  * @author LAGV
  */
-public class AlgoritmoSRT extends AlgoritmosSimuladorPlanificacion implements AlgoritmoExpropiativoInterface {
+public class AlgoritmoSRT extends AlgoritmoExpropiativo {
 
     @Override
     public void OrdenarCola(ProcesoServido proceso) {

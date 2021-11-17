@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AlgoritmosPlanificacion.ViewModels;
+package AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion;
 
-import AlgoritmosPlanificacion.ViewModels.Interfaces.AlgoritmoExpropiativoInterface;
+import AlgoritmosPlanificacion.ViewModels.Procesos.ProcesoServido;
 
-import java.util.ArrayList;
 
 /**
  *
  * @author LAGV
  */
-public class AlgoritmoRR extends AlgoritmosSimuladorPlanificacion implements AlgoritmoExpropiativoInterface {
+public class AlgoritmoRR extends AlgoritmoExpropiativo {
 
     @Override
-    public void Expropiar() {
-        
+    public void Expropiar() {      
         if (this.procesoEjecutandose != null) {
             //agregar el proceso a la cola de listos
             this.OrdenarCola(this.procesoEjecutandose);

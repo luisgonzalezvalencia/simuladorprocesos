@@ -6,12 +6,14 @@
 package AlgoritmosPlanificacion.Controllers;
 
 import AlgoritmosPlanificacion.Models.ProcesosModel;
-import AlgoritmosPlanificacion.ViewModels.AlgoritmoFCFS;
-import AlgoritmosPlanificacion.ViewModels.AlgoritmoRR;
-import AlgoritmosPlanificacion.ViewModels.AlgoritmoSPN;
-import AlgoritmosPlanificacion.ViewModels.AlgoritmoSRT;
-import AlgoritmosPlanificacion.ViewModels.Proceso;
-import AlgoritmosPlanificacion.ViewModels.ProcesoServido;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion.AlgoritmoExpropiativo;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion.AlgoritmoFCFS;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion.AlgoritmoRR;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion.AlgoritmoSPN;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion.AlgoritmoSRT;
+import AlgoritmosPlanificacion.ViewModels.AlgoritmosPlanificacion.AlgoritmosPlanificacion;
+import AlgoritmosPlanificacion.ViewModels.Procesos.Proceso;
+import AlgoritmosPlanificacion.ViewModels.Procesos.ProcesoServido;
 import AlgoritmosPlanificacion.Views.SimuladorView;
 
 import java.awt.event.ActionEvent;
@@ -22,10 +24,10 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author LAGV
+ * @author LAGV y JMG
  */
 public class SimuladorController implements ActionListener, Runnable {
-    
+
     ProcesosModel _procesosModel = new ProcesosModel();
     SimuladorView simuladorVista;
     //si queremos ver una ejecucion detenida paso a paso cuando cambia de proceso
@@ -36,7 +38,9 @@ public class SimuladorController implements ActionListener, Runnable {
     DefaultTableModel modeloTablaListos = new DefaultTableModel();
     DefaultTableModel modeloTablaTerminados = new DefaultTableModel();
     Integer tiempoSleep = 1000;
-    
+    Integer quantum;
+    Integer quantumCont;
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         //seteamos las acciones sobre la vista
@@ -45,26 +49,26 @@ public class SimuladorController implements ActionListener, Runnable {
             //
             //ejecutamos el hilo de la clase actua
             new Thread(this).start();
-            
+
         }
-        
+
         if (ae.getSource() == simuladorVista.txtQuantumElegido) {
             if (!"".equals(simuladorVista.txtQuantumElegido.getText())) {
                 if (Integer.parseInt(this.simuladorVista.txtQuantumElegido.getText()) > 0) {
                     this.simuladorVista.btnIniciarSimulacion.setEnabled(true);
                     ////seteo en true el enabled y salgo
                     return;
-                }                
+                }
             }
             this.simuladorVista.btnIniciarSimulacion.setEnabled(false);
         }
     }
-    
+
     public SimuladorController(SimuladorView simuladorVista, String algoritmoSeleccionado) {
         this.algoritmoSeleccionado = algoritmoSeleccionado;
         this.simuladorVista = simuladorVista;
         this.procesosUtilizar = _procesosModel.ObtenerListadoProcesos();
-        
+
         switch (this.algoritmoSeleccionado) {
             case "RR":
                 this.simuladorVista.txtQuantumElegido.setVisible(true);
@@ -79,7 +83,7 @@ public class SimuladorController implements ActionListener, Runnable {
                 this.simuladorVista.lblQuantumRafaga.setVisible(false);
                 this.simuladorVista.txtQuantumRafaga.setVisible(false);
         }
-        
+
         if (this.simuladorVista.isVisible()) {
             MostrarSimulacionEnVista(this.procesosUtilizar, null, null, null, -1, false, this.algoritmoSeleccionado);
         }
@@ -87,108 +91,65 @@ public class SimuladorController implements ActionListener, Runnable {
         //agregamos los listeners de las acciones a la vista
         this.simuladorVista.btnIniciarSimulacion.addActionListener(this);
         this.simuladorVista.txtQuantumElegido.addActionListener(this);
-        
+
     }
-    
-    public void SimularFCFS() {
-        AlgoritmoFCFS simuladorFCFS = new AlgoritmoFCFS();
+
+    public void Simular(AlgoritmosPlanificacion algoritmoSimular) {
+
+//        AlgoritmoRR simuladorRR = new AlgoritmoRR();
         //inicializamos los componentes del algoritmo a simular
-        simuladorFCFS.InicializarComponentes();
+        algoritmoSimular.InicializarComponentes();
 
         //seteamos la lista de procesos por arribar obteniendolos del file        
         List<Proceso> listaArribo = this.procesosUtilizar;
-        simuladorFCFS.setListaArribo(listaArribo);
+        algoritmoSimular.setListaArribo(listaArribo);
 
         //mientras no hayan terminado los procesos,  voy a seguir la simulacion
-        while (!simuladorFCFS.isTerminaronProcesos()) {
+        while (!algoritmoSimular.isTerminaronProcesos()) {
 
             //un for o foreach para lista de procesos cargarlos en la cola de listos
-            for (Proceso procesoArribar : simuladorFCFS.getListaArribo()) {
-                if (procesoArribar.getTiempoArribo() == simuladorFCFS.getTiempoCPU()) {
+            for (Proceso procesoArribar : algoritmoSimular.getListaArribo()) {
+                if (procesoArribar.getTiempoArribo() == algoritmoSimular.getTiempoCPU()) {
                     //creo una instancia de proceso servido y seteo los parametros del proceso por arribar                    
                     ProcesoServido procesoServido = new ProcesoServido(procesoArribar.getId(), procesoArribar.getNombreProceso(), procesoArribar.getTiempoArribo(), procesoArribar.getRafagaCPU(), procesoArribar.getPrioridad(), procesoArribar.getRafagaCPU());
                     //indico al simulador que ordene la cola con el proceso servido
-                    simuladorFCFS.OrdenarCola(procesoServido);
+                    algoritmoSimular.OrdenarCola(procesoServido);
                 }
             }
 
             //llamamos al ejecutador de procesos
-            simuladorFCFS.EjecutarProceso();
+            algoritmoSimular.EjecutarProceso();
 
             //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-            MostrarSimulacionEnVista(simuladorFCFS.getListaArribo(), simuladorFCFS.getListaListos(), simuladorFCFS.getProcesoEjecutandose(), simuladorFCFS.getListaProcesosTerminados(), simuladorFCFS.getTiempoCPU(), simuladorFCFS.isCpuEnUso(), "FCFS");
+            MostrarSimulacionEnVista(algoritmoSimular.getListaArribo(), algoritmoSimular.getListaListos(), algoritmoSimular.getProcesoEjecutandose(), algoritmoSimular.getListaProcesosTerminados(), algoritmoSimular.getTiempoCPU(), algoritmoSimular.isCpuEnUso(), "FCFS");
 
-            //simulamos que el reloj de la CPU funcione mas lento para poder ver en detalle los movimientos de cada algoritmo
-            this.SleepTime();
-
-            //incremento el tiempo de CPU
-            simuladorFCFS.setTiempoCPU(simuladorFCFS.getTiempoCPU() + 1);
-            
-        }
-
-        //siempre tengo un tiempo  mas, se lo quito
-        simuladorFCFS.setTiempoCPU(simuladorFCFS.getTiempoCPU() - 1);
-        simuladorFCFS.MostrarResultado();
-        //aqui mostramos los resultados en la tabla de ejecucion
-        //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-        MostrarSimulacionEnVista(simuladorFCFS.getListaArribo(), simuladorFCFS.getListaListos(), simuladorFCFS.getProcesoEjecutandose(), simuladorFCFS.getListaProcesosTerminados(), simuladorFCFS.getTiempoCPU(), simuladorFCFS.isCpuEnUso(), "FCFS");
-        
-    }
-    
-    public void SimularRR(int quantum) {
-        int quantumCont = quantum;
-        
-        AlgoritmoRR simuladorRR = new AlgoritmoRR();
-        //inicializamos los componentes del algoritmo a simular
-        simuladorRR.InicializarComponentes();
-
-        //seteamos la lista de procesos por arribar obteniendolos del file        
-        List<Proceso> listaArribo = this.procesosUtilizar;
-        simuladorRR.setListaArribo(listaArribo);
-
-        //mientras no hayan terminado los procesos,  voy a seguir la simulacion
-        while (!simuladorRR.isTerminaronProcesos()) {
-
-            //un for o foreach para lista de procesos cargarlos en la cola de listos
-            for (Proceso procesoArribar : simuladorRR.getListaArribo()) {
-                if (procesoArribar.getTiempoArribo() == simuladorRR.getTiempoCPU()) {
-                    //creo una instancia de proceso servido y seteo los parametros del proceso por arribar                    
-                    ProcesoServido procesoServido = new ProcesoServido(procesoArribar.getId(), procesoArribar.getNombreProceso(), procesoArribar.getTiempoArribo(), procesoArribar.getRafagaCPU(), procesoArribar.getPrioridad(), procesoArribar.getRafagaCPU());
-                    //indico al simulador que ordene la cola con el proceso servido
-                    simuladorRR.OrdenarCola(procesoServido);
+            if ("RR".equals(this.algoritmoSeleccionado)) {
+                //descontamos el quantum y verificamos si ees necesario expropiar
+                quantumCont -= 1;
+                if (quantumCont == 0) {
+                    //casteo a algoritmo expropiativo para poder usar el expropiar
+                    ((AlgoritmoExpropiativo) algoritmoSimular).Expropiar();
+                    quantumCont = quantum;
                 }
-            }
-
-            //llamamos al ejecutador de procesos
-            simuladorRR.EjecutarProceso();
-
-            //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-            MostrarSimulacionEnVista(simuladorRR.getListaArribo(), simuladorRR.getListaListos(), simuladorRR.getProcesoEjecutandose(), simuladorRR.getListaProcesosTerminados(), simuladorRR.getTiempoCPU(), simuladorRR.isCpuEnUso(), "FCFS");
-
-            //descontamos el quantum y verificamos si ees necesario expropiar
-            quantumCont -= 1;
-            if (quantumCont == 0) {
-                simuladorRR.Expropiar();
-                quantumCont = quantum;
             }
 
             //simulamos que el reloj de la CPU funcione mas lento para poder ver en detalle los movimientos de cada algoritmo
             this.SleepTime();
             //incremento el tiempo de CPU
-            simuladorRR.setTiempoCPU(simuladorRR.getTiempoCPU() + 1);
-            
+            algoritmoSimular.setTiempoCPU(algoritmoSimular.getTiempoCPU() + 1);
+
         }
 
         //siempre tengo un tiempo  mas, se lo quito
-        simuladorRR.setTiempoCPU(simuladorRR.getTiempoCPU() - 1);
+        algoritmoSimular.setTiempoCPU(algoritmoSimular.getTiempoCPU() - 1);
         //calculamos los resultados
-        simuladorRR.MostrarResultado();
+        algoritmoSimular.MostrarResultado();
         //aqui mostramos los resultados en la tabla de ejecucion
         //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-        MostrarSimulacionEnVista(simuladorRR.getListaArribo(), simuladorRR.getListaListos(), simuladorRR.getProcesoEjecutandose(), simuladorRR.getListaProcesosTerminados(), simuladorRR.getTiempoCPU(), simuladorRR.isCpuEnUso(), "FCFS");
-        
+        MostrarSimulacionEnVista(algoritmoSimular.getListaArribo(), algoritmoSimular.getListaListos(), algoritmoSimular.getProcesoEjecutandose(), algoritmoSimular.getListaProcesosTerminados(), algoritmoSimular.getTiempoCPU(), algoritmoSimular.isCpuEnUso(), "FCFS");
+
     }
-    
+
     private void SleepTime() {
         try {
             Thread.sleep(tiempoSleep);
@@ -196,9 +157,9 @@ public class SimuladorController implements ActionListener, Runnable {
             e.printStackTrace();
         }
     }
-    
+
     public void SimularSRT() {
-        
+
         AlgoritmoSRT simuladorSRT = new AlgoritmoSRT();
         //inicializamos los componentes del algoritmo a simular
         simuladorSRT.InicializarComponentes();
@@ -230,7 +191,7 @@ public class SimuladorController implements ActionListener, Runnable {
             this.SleepTime();
             //incremento el tiempo de CPU
             simuladorSRT.setTiempoCPU(simuladorSRT.getTiempoCPU() + 1);
-            
+
         }
 
         //siempre tengo un tiempo  mas, se lo quito
@@ -239,9 +200,9 @@ public class SimuladorController implements ActionListener, Runnable {
         //aqui mostramos los resultados en la tabla de ejecucion
         //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
         MostrarSimulacionEnVista(simuladorSRT.getListaArribo(), simuladorSRT.getListaListos(), simuladorSRT.getProcesoEjecutandose(), simuladorSRT.getListaProcesosTerminados(), simuladorSRT.getTiempoCPU(), simuladorSRT.isCpuEnUso(), "FCFS");
-        
+
     }
-    
+
     public void SimularSPN() {
         AlgoritmoSPN simuladorSPN = new AlgoritmoSPN();
         //inicializamos los componentes del algoritmo a simular
@@ -275,7 +236,7 @@ public class SimuladorController implements ActionListener, Runnable {
 
             //incremento el tiempo de CPU
             simuladorSPN.setTiempoCPU(simuladorSPN.getTiempoCPU() + 1);
-            
+
         }
 
         //siempre tengo un tiempo  mas, se lo quito
@@ -284,11 +245,11 @@ public class SimuladorController implements ActionListener, Runnable {
         //aqui mostramos los resultados en la tabla de ejecucion
         //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
         MostrarSimulacionEnVista(simuladorSPN.getListaArribo(), simuladorSPN.getListaListos(), simuladorSPN.getProcesoEjecutandose(), simuladorSPN.getListaProcesosTerminados(), simuladorSPN.getTiempoCPU(), simuladorSPN.isCpuEnUso(), "FCFS");
-        
+
     }
-    
+
     private void MostrarSimulacionEnVista(List<Proceso> listaProcesos, List<ProcesoServido> colaListos, ProcesoServido procesoEnCPU, List<ProcesoServido> procesosTerminados, int tiempoCPU, boolean hayProcesosEnEjecucion, String algoritmoPlanificacion) {
-        
+
         modeloTablaArribar = (DefaultTableModel) this.simuladorVista.tablaProcesosArribar.getModel();
         this.LimpiarTabla(modeloTablaArribar);
         Object[] objetoTabla = new Object[5];
@@ -346,38 +307,40 @@ public class SimuladorController implements ActionListener, Runnable {
 
         //seteo los campos
         this.simuladorVista.txtTiempoCPU.setText(String.valueOf(tiempoCPU));
-        this.simuladorVista.txtNombreAlgoritmo.setText(algoritmoPlanificacion);
-        
+        this.simuladorVista.txtNombreAlgoritmo.setText(this.algoritmoSeleccionado);
+
     }
-    
+
     @Override
     public void run() {
-        //dependiendo el algoritmo, llamo al metodo correspondiente
-        
+        //dependiendo el algoritmo, llamo al metodo correspondiente        
         switch (this.algoritmoSeleccionado) {
             case "FCFS":
-                SimularFCFS();
+                this.Simular(new AlgoritmoFCFS());
                 break;
             case "RR":
-                SimularRR(Integer.parseInt(this.simuladorVista.txtQuantumElegido.getText()));
+                this.quantum = Integer.parseInt(this.simuladorVista.txtQuantumElegido.getText());
+                this.quantumCont = this.quantum;
+                this.Simular(new AlgoritmoRR());
                 break;
             case "SPN":
-                SimularSPN();
+                this.Simular(new AlgoritmoSPN());
                 break;
             case "SRT":
-                SimularSRT();
+                this.Simular(new AlgoritmoSRT());
                 break;
             default:
+                this.Simular(new AlgoritmoFCFS());
                 break;
         }
     }
-    
+
     private void LimpiarTabla(final DefaultTableModel model) {
         //debemos limpiar la tabla antes de cargar los datos nuevamente para que no se repitan las filas
         for (int i = model.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
         }
-        
+
     }
-    
+
 }
