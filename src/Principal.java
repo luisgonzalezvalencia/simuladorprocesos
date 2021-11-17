@@ -187,7 +187,7 @@ public class Principal extends javax.swing.JFrame {
         jTextFieldPeticionPos = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         btnProcesos = new javax.swing.JButton();
-        jButtonSimular1 = new javax.swing.JButton();
+        btnSimularPlanificadorProceso = new javax.swing.JButton();
         jButtonSimular = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -1344,10 +1344,11 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButtonSimular1.setText("SIMULAR");
-        jButtonSimular1.addActionListener(new java.awt.event.ActionListener() {
+        btnSimularPlanificadorProceso.setText("SIMULAR");
+        btnSimularPlanificadorProceso.setEnabled(false);
+        btnSimularPlanificadorProceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSimular1ActionPerformed(evt);
+                btnSimularPlanificadorProcesoActionPerformed(evt);
             }
         });
 
@@ -1435,7 +1436,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnProcesos, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonSimular1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSimularPlanificadorProceso, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonSimular, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(106, 106, 106))
@@ -1501,7 +1502,7 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProcesos)
-                    .addComponent(jButtonSimular1)
+                    .addComponent(btnSimularPlanificadorProceso)
                     .addComponent(jButtonSimular))
                 .addGap(18, 18, 18)
                 .addComponent(jPanelDisco, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1586,6 +1587,7 @@ public class Principal extends javax.swing.JFrame {
         this.algoritmoSeleccionado = "SSTF";
         jPanelDisco.setVisible(true);
         jPanelAlgoritmoPlanificacion.setVisible(false);
+        ActivarDesactivarSimulacionPlanificador();
     }//GEN-LAST:event_jRBSSFTActionPerformed
 
     private void jRBLookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBLookActionPerformed
@@ -1603,6 +1605,7 @@ public class Principal extends javax.swing.JFrame {
         this.algoritmoSeleccionado = "LAMPORT";
         jPanelDisco.setVisible(false);
         jPanelAlgoritmoPlanificacion.setVisible(true);
+        ActivarDesactivarSimulacionPlanificador();
     }//GEN-LAST:event_jRBLamportActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -1701,8 +1704,30 @@ public class Principal extends javax.swing.JFrame {
         this.algoritmoSeleccionado = "FCFS";
         jPanelDisco.setVisible(false);
         jPanelAlgoritmoPlanificacion.setVisible(false);
+        ActivarDesactivarSimulacionPlanificador();
+
     }//GEN-LAST:event_jRBFifoActionPerformed
 
+    private void ActivarDesactivarSimulacionPlanificador() {
+
+        switch (this.algoritmoSeleccionado) {
+            case "FCFS":
+                btnSimularPlanificadorProceso.setEnabled(true);
+                break;
+            case "RR":
+                btnSimularPlanificadorProceso.setEnabled(true);
+                break;
+            case "SPN":
+                btnSimularPlanificadorProceso.setEnabled(true);
+                break;
+            case "SRT":
+                btnSimularPlanificadorProceso.setEnabled(true);
+                break;
+            default:
+                btnSimularPlanificadorProceso.setEnabled(false);
+        }
+
+    }
 
     private void jRBSwappingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBSwappingActionPerformed
         // TODO add your handling code here:
@@ -1792,6 +1817,7 @@ public class Principal extends javax.swing.JFrame {
         this.algoritmoSeleccionado = "RR";
         jPanelDisco.setVisible(false);
         jPanelAlgoritmoPlanificacion.setVisible(false);
+        ActivarDesactivarSimulacionPlanificador();
     }//GEN-LAST:event_jRBRoundRobinActionPerformed
 
     private void jButtonDetalleRRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleRRActionPerformed
@@ -1806,6 +1832,7 @@ public class Principal extends javax.swing.JFrame {
         this.algoritmoSeleccionado = "SRT";
         jPanelDisco.setVisible(false);
         jPanelAlgoritmoPlanificacion.setVisible(false);
+        ActivarDesactivarSimulacionPlanificador();
     }//GEN-LAST:event_jRBSRTActionPerformed
 
     private void jButtonDetalleSRTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleSRTActionPerformed
@@ -1819,12 +1846,13 @@ public class Principal extends javax.swing.JFrame {
         this.algoritmoSeleccionado = "FCFS";
         jPanelDisco.setVisible(false);
         jPanelAlgoritmoPlanificacion.setVisible(false);
+        ActivarDesactivarSimulacionPlanificador();
     }//GEN-LAST:event_jRBSPNActionPerformed
 
     private void jButtonDetalleSPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalleSPNActionPerformed
         // TODO add your handling code here:
         jDetalleAlgoritmoSPN.setVisible(true);
-        jDetalleAlgoritmoSPN.setLocationRelativeTo(null);        
+        jDetalleAlgoritmoSPN.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButtonDetalleSPNActionPerformed
 
     private void btnProcesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesosActionPerformed
@@ -1834,12 +1862,11 @@ public class Principal extends javax.swing.JFrame {
         procesosView.DelegarAcciones();
     }//GEN-LAST:event_btnProcesosActionPerformed
 
-    private void jButtonSimular1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimular1ActionPerformed
-
+    private void btnSimularPlanificadorProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimularPlanificadorProcesoActionPerformed
         //abrimos la ventana de creaciòn/Ediciòn de procesos
         SimuladorView simuladorView = new SimuladorView();
-        simuladorView.DelegarAcciones("");
-    }//GEN-LAST:event_jButtonSimular1ActionPerformed
+        simuladorView.DelegarAcciones(this.algoritmoSeleccionado);
+    }//GEN-LAST:event_btnSimularPlanificadorProcesoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1895,6 +1922,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton SCAN;
     private javax.swing.JButton btnProcesos;
+    private javax.swing.JButton btnSimularPlanificadorProceso;
     private javax.swing.JRadioButton cScan;
     private javax.swing.JDialog jAbout;
     private javax.swing.JButton jButton1;
@@ -1916,7 +1944,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDetalleSwapping1;
     private javax.swing.JButton jButtonDetalleSwapping2;
     private javax.swing.JButton jButtonSimular;
-    private javax.swing.JButton jButtonSimular1;
     private javax.swing.JDialog jDetalleAlgoritmoDekker;
     private javax.swing.JDialog jDetalleAlgoritmoFCFS;
     private javax.swing.JDialog jDetalleAlgoritmoFifo;

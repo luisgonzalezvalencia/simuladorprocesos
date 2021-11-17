@@ -13,7 +13,7 @@ package AlgoritmosPlanificacion.ViewModels;
 public class ProcesoServido extends Proceso implements Comparable<ProcesoServido> {
 
     //atributos del proceso servido (adicionales a Proceso por herencia)
-    int rafagasRestantesCPU;
+    Integer rafagasRestantesCPU;
     int tiempoFinalizacion;
     int tiempoEstanciaTr;
     //tr/ts
@@ -36,7 +36,7 @@ public class ProcesoServido extends Proceso implements Comparable<ProcesoServido
         this.rafagasRestantesCPU = rafagasRestantesCPU;
     }
 
-    public int getRafagasRestantesCPU() {
+    public Integer getRafagasRestantesCPU() {
         return rafagasRestantesCPU;
     }
 
@@ -80,7 +80,7 @@ public class ProcesoServido extends Proceso implements Comparable<ProcesoServido
 
     @Override
     public int compareTo(ProcesoServido t) {
-        return String.valueOf(this.getRafagasRestantesCPU()).compareTo(String.valueOf(t.getRafagasRestantesCPU()));
+        return this.getRafagasRestantesCPU().compareTo(t.getRafagasRestantesCPU());
     }
 
 }
