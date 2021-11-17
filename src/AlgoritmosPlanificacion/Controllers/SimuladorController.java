@@ -85,7 +85,7 @@ public class SimuladorController implements ActionListener, Runnable {
         }
 
         if (this.simuladorVista.isVisible()) {
-            MostrarSimulacionEnVista(this.procesosUtilizar, null, null, null, -1, false, this.algoritmoSeleccionado);
+            MostrarSimulacionEnVista(this.procesosUtilizar, null, null, null, -1, false, 0, this.algoritmoSeleccionado);
         }
 
         //agregamos los listeners de las acciones a la vista
@@ -121,11 +121,17 @@ public class SimuladorController implements ActionListener, Runnable {
             algoritmoSimular.EjecutarProceso();
 
             //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-            MostrarSimulacionEnVista(algoritmoSimular.getListaArribo(), algoritmoSimular.getListaListos(), algoritmoSimular.getProcesoEjecutandose(), algoritmoSimular.getListaProcesosTerminados(), algoritmoSimular.getTiempoCPU(), algoritmoSimular.isCpuEnUso(), "FCFS");
+            MostrarSimulacionEnVista(algoritmoSimular.getListaArribo(), algoritmoSimular.getListaListos(), algoritmoSimular.getProcesoEjecutandose(), algoritmoSimular.getListaProcesosTerminados(), algoritmoSimular.getTiempoCPU(), algoritmoSimular.isCpuEnUso(), 0, "FCFS");
 
             if ("RR".equals(this.algoritmoSeleccionado)) {
                 //descontamos el quantum y verificamos si ees necesario expropiar
                 quantumCont -= 1;
+                
+                //si luego de una ejecucion de RR el proceso terminó, reiniciamos el quantum
+                if (algoritmoSimular.getProcesoEjecutandose() == null) {
+                    quantumCont = quantum;
+                }
+
                 if (quantumCont == 0) {
                     //casteo a algoritmo expropiativo para poder usar el expropiar
                     ((AlgoritmoExpropiativo) algoritmoSimular).Expropiar();
@@ -142,11 +148,12 @@ public class SimuladorController implements ActionListener, Runnable {
 
         //siempre tengo un tiempo  mas, se lo quito
         algoritmoSimular.setTiempoCPU(algoritmoSimular.getTiempoCPU() - 1);
+
         //calculamos los resultados
         algoritmoSimular.MostrarResultado();
         //aqui mostramos los resultados en la tabla de ejecucion
         //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-        MostrarSimulacionEnVista(algoritmoSimular.getListaArribo(), algoritmoSimular.getListaListos(), algoritmoSimular.getProcesoEjecutandose(), algoritmoSimular.getListaProcesosTerminados(), algoritmoSimular.getTiempoCPU(), algoritmoSimular.isCpuEnUso(), "FCFS");
+        MostrarSimulacionEnVista(algoritmoSimular.getListaArribo(), algoritmoSimular.getListaListos(), algoritmoSimular.getProcesoEjecutandose(), algoritmoSimular.getListaProcesosTerminados(), algoritmoSimular.getTiempoCPU(), algoritmoSimular.isCpuEnUso(), algoritmoSimular.getTiempoPromedioTotal(), "FCFS");
 
     }
 
@@ -158,97 +165,7 @@ public class SimuladorController implements ActionListener, Runnable {
         }
     }
 
-    public void SimularSRT() {
-
-        AlgoritmoSRT simuladorSRT = new AlgoritmoSRT();
-        //inicializamos los componentes del algoritmo a simular
-        simuladorSRT.InicializarComponentes();
-
-        //seteamos la lista de procesos por arribar obteniendolos del file        
-        List<Proceso> listaArribo = this.procesosUtilizar;
-        simuladorSRT.setListaArribo(listaArribo);
-
-        //mientras no hayan terminado los procesos,  voy a seguir la simulacion
-        while (!simuladorSRT.isTerminaronProcesos()) {
-
-            //un for o foreach para lista de procesos cargarlos en la cola de listos
-            for (Proceso procesoArribar : simuladorSRT.getListaArribo()) {
-                if (procesoArribar.getTiempoArribo() == simuladorSRT.getTiempoCPU()) {
-                    //creo una instancia de proceso servido y seteo los parametros del proceso por arribar                    
-                    ProcesoServido procesoServido = new ProcesoServido(procesoArribar.getId(), procesoArribar.getNombreProceso(), procesoArribar.getTiempoArribo(), procesoArribar.getRafagaCPU(), procesoArribar.getPrioridad(), procesoArribar.getRafagaCPU());
-                    //indico al simulador que ordene la cola con el proceso servido
-                    simuladorSRT.OrdenarCola(procesoServido);
-                }
-            }
-
-            //llamamos al ejecutador de procesos
-            simuladorSRT.EjecutarProceso();
-
-            //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-            MostrarSimulacionEnVista(simuladorSRT.getListaArribo(), simuladorSRT.getListaListos(), simuladorSRT.getProcesoEjecutandose(), simuladorSRT.getListaProcesosTerminados(), simuladorSRT.getTiempoCPU(), simuladorSRT.isCpuEnUso(), "FCFS");
-
-            //simulamos que el reloj de la CPU funcione mas lento para poder ver en detalle los movimientos de cada algoritmo
-            this.SleepTime();
-            //incremento el tiempo de CPU
-            simuladorSRT.setTiempoCPU(simuladorSRT.getTiempoCPU() + 1);
-
-        }
-
-        //siempre tengo un tiempo  mas, se lo quito
-        simuladorSRT.setTiempoCPU(simuladorSRT.getTiempoCPU() - 1);
-        simuladorSRT.MostrarResultado();
-        //aqui mostramos los resultados en la tabla de ejecucion
-        //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-        MostrarSimulacionEnVista(simuladorSRT.getListaArribo(), simuladorSRT.getListaListos(), simuladorSRT.getProcesoEjecutandose(), simuladorSRT.getListaProcesosTerminados(), simuladorSRT.getTiempoCPU(), simuladorSRT.isCpuEnUso(), "FCFS");
-
-    }
-
-    public void SimularSPN() {
-        AlgoritmoSPN simuladorSPN = new AlgoritmoSPN();
-        //inicializamos los componentes del algoritmo a simular
-        simuladorSPN.InicializarComponentes();
-
-        //seteamos la lista de procesos por arribar obteniendolos del file        
-        List<Proceso> listaArribo = this.procesosUtilizar;
-        simuladorSPN.setListaArribo(listaArribo);
-
-        //mientras no hayan terminado los procesos,  voy a seguir la simulacion
-        while (!simuladorSPN.isTerminaronProcesos()) {
-
-            //un for o foreach para lista de procesos cargarlos en la cola de listos
-            for (Proceso procesoArribar : simuladorSPN.getListaArribo()) {
-                if (procesoArribar.getTiempoArribo() == simuladorSPN.getTiempoCPU()) {
-                    //creo una instancia de proceso servido y seteo los parametros del proceso por arribar                    
-                    ProcesoServido procesoServido = new ProcesoServido(procesoArribar.getId(), procesoArribar.getNombreProceso(), procesoArribar.getTiempoArribo(), procesoArribar.getRafagaCPU(), procesoArribar.getPrioridad(), procesoArribar.getRafagaCPU());
-                    //indico al simulador que ordene la cola con el proceso servido
-                    simuladorSPN.OrdenarCola(procesoServido);
-                }
-            }
-
-            //llamamos al ejecutador de procesos
-            simuladorSPN.EjecutarProceso();
-
-            //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-            MostrarSimulacionEnVista(simuladorSPN.getListaArribo(), simuladorSPN.getListaListos(), simuladorSPN.getProcesoEjecutandose(), simuladorSPN.getListaProcesosTerminados(), simuladorSPN.getTiempoCPU(), simuladorSPN.isCpuEnUso(), "FCFS");
-
-            //simulamos que el reloj de la CPU funcione mas lento para poder ver en detalle los movimientos de cada algoritmo
-            this.SleepTime();
-
-            //incremento el tiempo de CPU
-            simuladorSPN.setTiempoCPU(simuladorSPN.getTiempoCPU() + 1);
-
-        }
-
-        //siempre tengo un tiempo  mas, se lo quito
-        simuladorSPN.setTiempoCPU(simuladorSPN.getTiempoCPU() - 1);
-        simuladorSPN.MostrarResultado();
-        //aqui mostramos los resultados en la tabla de ejecucion
-        //MOSTRAMOS LOS RESULTADOS DE CADA EJECUCION EN LA VISTA
-        MostrarSimulacionEnVista(simuladorSPN.getListaArribo(), simuladorSPN.getListaListos(), simuladorSPN.getProcesoEjecutandose(), simuladorSPN.getListaProcesosTerminados(), simuladorSPN.getTiempoCPU(), simuladorSPN.isCpuEnUso(), "FCFS");
-
-    }
-
-    private void MostrarSimulacionEnVista(List<Proceso> listaProcesos, List<ProcesoServido> colaListos, ProcesoServido procesoEnCPU, List<ProcesoServido> procesosTerminados, int tiempoCPU, boolean hayProcesosEnEjecucion, String algoritmoPlanificacion) {
+    private void MostrarSimulacionEnVista(List<Proceso> listaProcesos, List<ProcesoServido> colaListos, ProcesoServido procesoEnCPU, List<ProcesoServido> procesosTerminados, int tiempoCPU, boolean hayProcesosEnEjecucion, float tiempoPromedioTotal, String algoritmoPlanificacion) {
 
         modeloTablaArribar = (DefaultTableModel) this.simuladorVista.tablaProcesosArribar.getModel();
         this.LimpiarTabla(modeloTablaArribar);
@@ -258,7 +175,31 @@ public class SimuladorController implements ActionListener, Runnable {
             objetoTabla[1] = procesoDatos.getNombreProceso();
             objetoTabla[2] = procesoDatos.getTiempoArribo();
             objetoTabla[3] = procesoDatos.getRafagaCPU();
-            objetoTabla[4] = procesoDatos.getPrioridad();
+            objetoTabla[4] = "NO ARRIBADO";
+            //si el proceso està en la cola de listo lo marco como listo aqui
+            if (colaListos != null) {
+                for (ProcesoServido procesoListoDatos : colaListos) {
+                    if (procesoListoDatos.getId() == procesoDatos.getId()) {
+                        objetoTabla[4] = "LISTO";
+                    }
+                }
+
+            }
+
+            if (procesosTerminados != null) {
+                for (ProcesoServido procesoTerminadoDatos : procesosTerminados) {
+                    if (procesoTerminadoDatos.getId() == procesoDatos.getId()) {
+                        objetoTabla[4] = "TERMINADO";
+                    }
+                }
+
+            }
+
+            //objetoTabla[4] = procesoDatos.getPrioridad();
+            if (procesoEnCPU != null && procesoDatos.getId() == procesoEnCPU.getId()) {
+                objetoTabla[4] = "PROCESANDOSE";
+            }
+
             modeloTablaArribar.addRow(objetoTabla);
         }
         //tabla procesos iniciales
@@ -275,7 +216,7 @@ public class SimuladorController implements ActionListener, Runnable {
                 objetoTablaListos[1] = procesoListoDatos.getNombreProceso();
                 objetoTablaListos[2] = procesoListoDatos.getTiempoArribo();
                 objetoTablaListos[3] = procesoListoDatos.getRafagaCPU();
-                objetoTablaListos[4] = procesoListoDatos.getPrioridad();
+                objetoTablaListos[4] = procesoListoDatos.getRafagasRestantesCPU();
                 modeloTablaListos.addRow(objetoTablaListos);
             }
             //tabla procesos iniciales
@@ -287,27 +228,37 @@ public class SimuladorController implements ActionListener, Runnable {
         if (procesosTerminados != null) {
             modeloTablaTerminados = (DefaultTableModel) this.simuladorVista.tablaProcesosTerminados.getModel();
             this.LimpiarTabla(modeloTablaTerminados);
-            Object[] objetoTablaTerminados = new Object[5];
+            Object[] objetoTablaTerminados = new Object[9];
             for (ProcesoServido procesoTerminadoDatos : procesosTerminados) {
                 objetoTablaTerminados[0] = procesoTerminadoDatos.getId();
                 objetoTablaTerminados[1] = procesoTerminadoDatos.getNombreProceso();
                 objetoTablaTerminados[2] = procesoTerminadoDatos.getTiempoArribo();
                 objetoTablaTerminados[3] = procesoTerminadoDatos.getRafagaCPU();
-                objetoTablaTerminados[4] = procesoTerminadoDatos.getPrioridad();
+                objetoTablaTerminados[4] = procesoTerminadoDatos.getTiempoInicio();
+                objetoTablaTerminados[5] = procesoTerminadoDatos.getTiempoFinalizacion();
+                objetoTablaTerminados[6] = procesoTerminadoDatos.getTiempoEstanciaTr();
+                objetoTablaTerminados[7] = procesoTerminadoDatos.getTiempoPromedioTrTs();
                 modeloTablaTerminados.addRow(objetoTablaTerminados);
             }
             //tabla procesos iniciales
             this.simuladorVista.tablaProcesosTerminados.setModel(modeloTablaTerminados);
         }
 
-        //proceso en CPU
+        //procesos en CPU
         if (procesoEnCPU != null) {
             this.simuladorVista.txtProcesoEnEjecucion.setText(procesoEnCPU.getNombreProceso());
+            this.simuladorVista.txtRafagaRestanteProcesoCPU.setText(Integer.toString(procesoEnCPU.getRafagasRestantesCPU()));
+        } else {
+            //si no hay ninguno, limpio los campos de la vista
+            this.simuladorVista.txtProcesoEnEjecucion.setText("");
+            this.simuladorVista.txtRafagaRestanteProcesoCPU.setText("");
         }
 
         //seteo los campos
+        this.simuladorVista.txtQuantumRafaga.setText(String.valueOf(this.quantumCont));
         this.simuladorVista.txtTiempoCPU.setText(String.valueOf(tiempoCPU));
         this.simuladorVista.txtNombreAlgoritmo.setText(this.algoritmoSeleccionado);
+        this.simuladorVista.txtTiempoPromedioTotal.setText(Float.toString(tiempoPromedioTotal));
 
     }
 
